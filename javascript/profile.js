@@ -1,9 +1,16 @@
 // Load user data from localStorage
 function loadProfile() {
     const user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
-    if (user.firstName) document.getElementById('first-name').value = user.firstName;
-    if (user.lastName) document.getElementById('last-name').value = user.lastName;
-    if (user.email) document.getElementById('email').value = user.email;
+    if (user.firstName)
+       {
+        document.getElementById('first-name').value = user.firstName;
+      }
+    if (user.lastName) {
+      document.getElementById('last-name').value = user.lastName;
+    }
+    if (user.email) {
+      document.getElementById('email').value = user.email;
+    }
     if (user.profilePicture) document.getElementById('profile-img').src = user.profilePicture;
     // Age and API preferences (if previously set)
     const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
