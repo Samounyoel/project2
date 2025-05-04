@@ -19,8 +19,9 @@ $("#logInBtn").click(() => {
               // Redirect to the manager's home page
               window.location.href = "./home-manager.html";
             } else {
-              // Redirect to the developer's home page
-              window.location.href = "./home.html";
+             
+              
+                  window.location.href = 'profile.html';
             }
 
             clearInputs();

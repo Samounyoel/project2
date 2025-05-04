@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+  <div class="profile-container">
+    <h2>User Profile</h2>
+    <div class="profile-image-section">
+      <img id="profile-img" src="../pics/defaultPic.jpeg" alt="Profile Image" width="100">
+      <input type="file" id="img-upload" accept="image/*" style="display:none;">
+      <button id="update-img-btn">Update Image</button>
+    </div>
+    <form id="profile-form">
+      <label>
+        First Name:
+        <input type="text" id="first-name" required>
+      </label>
+      <label>
+        Last Name:
+        <input type="text" id="last-name" required>
+      </label>
+      <label>
+        Age:
+        <input type="number" id="age" min="1" required>
+      </label>
+      <label>
+        Email:
+        <input type="email" id="email" required disabled>
+      </label>
+      <div class="api-selection">
+        <label>
+          <input type="checkbox" id="weather-api">
+          Weather (Open-Meteo)
+        </label>
+        <label>
+          <input type="checkbox" id="stock-api">
+          Stock Market (Financial Modeling Prep)
+        </label>
+      </div>
+      <button type="submit">Save Profile</button>
+    </form>
+  </div>
+  <script src="../javascript/profile.js"></script>
+</body>
+</html>

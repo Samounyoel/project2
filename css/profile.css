@@ -1,0 +1,27 @@
+.profile-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 24px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fafafa;
+  }
+  .profile-image-section {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .profile-image-section img {
+    border-radius: 50%;
+    margin-bottom: 8px;
+  }
+  form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .api-selection {
+    margin: 16px 0;
+  }
+  button {
+    padding: 8px 16px;
+    margin-top: 8px;
+  }
