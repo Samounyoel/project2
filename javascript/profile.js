@@ -52,6 +52,7 @@ function loadProfile() {
     user.lastName = document.getElementById('last-name').value;
     localStorage.setItem('currentUSER', JSON.stringify(user));
     alert('Profile saved!');
+    window.location.href = 'home.html'; // Redirect to home after save
   });
   
   // Load profile on page load

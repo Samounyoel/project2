@@ -9,10 +9,58 @@
 
 body {
   min-height: 100vh;
+  background: #4070f4;
+}
+
+.navbar {
+  width: 100vw;
+  background: #4070f4;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  box-sizing: border-box;
+  margin-bottom: 32px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.navbar-user img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+}
+#logout-btn {
+  background: #fff;
+  color: #4070f4;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s, color 0.3s;
+}
+#logout-btn:hover {
+  background: #0e4bf1;
+  color: #fff;
+}
+
+.main-content {
+  min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #4070f4;
 }
 
 .profile-container {
@@ -128,4 +176,14 @@ body {
 
 #profile-form button[type="submit"]:hover {
   background: #0e4bf1;
+}
+
+.profile-details {
+  margin-top: 16px;
+}
+.profile-details p {
+  margin: 8px 0;
+}
+.api-selection ul {
+  margin: 8px 0 0 16px;
 }
