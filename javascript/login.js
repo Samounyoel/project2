@@ -1,48 +1,31 @@
-$("#logInBtn").click(() => {
-  let email = $("#email").val();
-  let password = $("#password").val();
-  if (email == "" || password == "") {
+$("#logInBtn").click(function() {
+  var email = $("#email").val();
+  var password = $("#password").val();
+  if (email === "" || password === "") {
     alert("All fields are required.");
     return;
-  } else {
-    let users = JSON.parse(localStorage.getItem("USERS"));
-    if (users) {
-      for (let i in users) {
-        let user = users[i];
-        if (user.email == email) {
-          if (user.password == password) {
-            // Store the logged-in user in localStorage
-            localStorage.setItem("currentUSER", JSON.stringify(user));
-
-            // Check the user's configuration (role)
-            if (user.configuration === "admin" || user.configuration === "manager") {
-              // Redirect to the manager's home page
-              window.location.href = "./home-manager.html";
-            } else {
-              // Check if userProfile exists and matches this user's email
-              const profile = JSON.parse(localStorage.getItem("userProfile") || "{}");
-              if (!profile.email || profile.email !== user.email) {
-                // New user or no profile info yet
-                // Save the email in userProfile for future checks
-                localStorage.setItem("userProfile", JSON.stringify({ email: user.email }));
-                window.location.href = 'profile.html';
-              } else {
-                // Returning user
-                window.location.href = 'home.html';
-              }
-            }
-
-            clearInputs();
-            return;
-          } else {
-            alert("Incorrect Password!");
-            return;
-          }
-        }
-      }
-    }
-    alert("Account not found!");
   }
+  var users = JSON.parse(localStorage.getItem("USERS") || "[]");
+  var found = false;
+  for (var i = 0; i < users.length; i++) {
+    var user = users[i];
+    if (user.email === email && user.password === password) {
+      localStorage.setItem("currentUSER", JSON.stringify(user));
+      var profile = JSON.parse(localStorage.getItem("userProfile") || "{}");
+      if (!profile.email || profile.email !== user.email) {
+        window.location.href = "profile.html";
+      } else {
+        window.location.href = "home.html";
+      }
+      found = true;
+      break;
+    }
+  }
+  if (!found) {
+    alert("Account not found or incorrect password!");
+  }
+  $("#email").val("");
+  $("#password").val("");
 });
 
 function clearInputs() {
