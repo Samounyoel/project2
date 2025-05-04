@@ -59,47 +59,33 @@ function loadProfileInfo() {
       { symbol: 'TSLA', name: 'Tesla' },
       { symbol: 'FB', name: 'Facebook' }
     ];
-    Promise.all(symbols.map(function(stock) {
-      return fetch('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + stock.symbol + '&apikey=' + apiKey)
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          const quote = data['Global Quote'];
-          return {
-            symbol: stock.symbol,
-            name: stock.name,
-            price: quote ? quote['05. price'] : null,
-            change: quote ? quote['09. change'] : null,
-            percent: quote ? quote['10. change percent'] : null
-          };
-        });
-    })).then(function(stocks) {
-      const validStocks = stocks.filter(function(s) { return s.price !== null; });
-      if (validStocks.length) {
-        let table = '<table style="width:100%;margin-top:10px;border-collapse:collapse;">' +
-          '<tr>' +
-            '<th style="text-align:left;padding:4px;">Symbol</th>' +
-            '<th style="text-align:left;padding:4px;">Name</th>' +
-            '<th style="text-align:left;padding:4px;">Price</th>' +
-            '<th style="text-align:left;padding:4px;">Change</th>' +
-            '<th style="text-align:left;padding:4px;">Change %</th>' +
-          '</tr>' +
-          validStocks.map(function(stock) {
-            return '<tr>' +
-              '<td style="padding:4px;">' + stock.symbol + '</td>' +
-              '<td style="padding:4px;">' + stock.name + '</td>' +
-              '<td style="padding:4px;">$' + stock.price + '</td>' +
-              '<td style="padding:4px;color:' + (parseFloat(stock.change) >= 0 ? 'green' : 'red') + ';">' + stock.change + '</td>' +
-              '<td style="padding:4px;color:' + (stock.percent && parseFloat(stock.percent) >= 0 ? 'green' : 'red') + ';">' + (stock.percent || '') + '</td>' +
-            '</tr>';
-          }).join('') +
-        '</table>';
-        document.getElementById('stock-info').innerHTML = table;
-      } else {
-        document.getElementById('stock-info').textContent = 'No data available.';
-      }
-    }).catch(function() {
-      document.getElementById('stock-info').textContent = 'Unavailable';
-    });
+    
+    let table = '<table style="width:100%;margin-top:10px;border-collapse:collapse;">' +
+      '<tr>' +
+        '<th style="text-align:left;padding:4px;">Symbol</th>' +
+        '<th style="text-align:left;padding:4px;">Name</th>' +
+        '<th style="text-align:left;padding:4px;">Price</th>' +
+        '<th style="text-align:left;padding:4px;">Change</th>' +
+        '<th style="text-align:left;padding:4px;">Change %</th>' +
+      '</tr>';
+    
+    for (let i = 0; i < symbols.length; i++) {
+      const stock = symbols[i];
+      const price = (Math.random() * 1000 + 100).toFixed(2);
+      const change = (Math.random() * 10 - 5).toFixed(2);
+      const percentChange = (change / price * 100).toFixed(2);
+      
+      table += '<tr>' +
+        '<td style="padding:4px;">' + stock.symbol + '</td>' +
+        '<td style="padding:4px;">' + stock.name + '</td>' +
+        '<td style="padding:4px;">$' + price + '</td>' +
+        '<td style="padding:4px;color:' + (parseFloat(change) >= 0 ? 'green' : 'red') + ';">' + change + '</td>' +
+        '<td style="padding:4px;color:' + (parseFloat(percentChange) >= 0 ? 'green' : 'red') + ';">' + percentChange + '%</td>' +
+      '</tr>';
+    }
+    
+    table += '</table>';
+    document.getElementById('stock-info').innerHTML = table;
   }
 }
 
