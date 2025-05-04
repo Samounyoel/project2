@@ -1,22 +1,22 @@
 function loadNavbar() {
-  var user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
+  const user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
   document.getElementById('nav-user-name').textContent = (user.firstName || '') + ' ' + (user.lastName || '');
   document.getElementById('nav-profile-img').src = user.profilePicture || '../pics/defaultPic.jpeg';
 }
 
 function loadProfileInfo() {
-  var user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
-  var profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-  var apis = [];
+  const user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
+  const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+  const apis = [];
   if (profile.weatherApi) apis.push('Weather (Open-Meteo)');
   if (profile.stockApi) apis.push('Stock Market (Alpha Vantage)');
 
-  var weatherSection = '';
+  let weatherSection = '';
   if (profile.weatherApi) {
     weatherSection = '<div id="weather-section"><strong>Weather in Ashdod, Israel:</strong> <span id="weather-info">Loading...</span></div>';
   }
 
-  var stockSection = '';
+  let stockSection = '';
   if (profile.stockApi) {
     stockSection = '<div id="stock-section"><strong>Stock Market Data:</strong><div id="stock-info">Loading...</div></div>';
   }
@@ -42,7 +42,7 @@ function loadProfileInfo() {
     fetch('https://api.open-meteo.com/v1/forecast?latitude=31.8014&longitude=34.6436&current_weather=true')
       .then(function(res) { return res.json(); })
       .then(function(data) {
-        var weather = data.current_weather;
+        const weather = data.current_weather;
         document.getElementById('weather-info').textContent =
           weather ? weather.temperature + '°C' : 'Unavailable';
       })
@@ -52,8 +52,8 @@ function loadProfileInfo() {
   }
 
   if (profile.stockApi) {
-    var apiKey = 'M5G24M5GCXG3UBTV';
-    var symbols = [
+    const apiKey = 'M5G24M5GCXG3UBTV';
+    const symbols = [
       { symbol: 'GOOGL', name: 'Google' },
       { symbol: 'META', name: 'Meta' },
       { symbol: 'TSLA', name: 'Tesla' },
@@ -63,7 +63,7 @@ function loadProfileInfo() {
       return fetch('https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=' + stock.symbol + '&apikey=' + apiKey)
         .then(function(res) { return res.json(); })
         .then(function(data) {
-          var quote = data['Global Quote'];
+          const quote = data['Global Quote'];
           return {
             symbol: stock.symbol,
             name: stock.name,
@@ -73,9 +73,9 @@ function loadProfileInfo() {
           };
         });
     })).then(function(stocks) {
-      var validStocks = stocks.filter(function(s) { return s.price !== null; });
+      const validStocks = stocks.filter(function(s) { return s.price !== null; });
       if (validStocks.length) {
-        var table = '<table style="width:100%;margin-top:10px;border-collapse:collapse;">' +
+        let table = '<table style="width:100%;margin-top:10px;border-collapse:collapse;">' +
           '<tr>' +
             '<th style="text-align:left;padding:4px;">Symbol</th>' +
             '<th style="text-align:left;padding:4px;">Name</th>' +
