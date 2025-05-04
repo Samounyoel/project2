@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="../css/regisration.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <h2>Registration</h2>
+    <div id="registrationForm">
+      <div class="input-box">
+        <label for="first-name">First Name</label>
+        <input type="text" id="first-name" placeholder="Enter your first name" >
+      </div>
+
+      <div class="input-box">
+        <label for="last-name">Last Name</label>
+        <input type="text" id="last-name" placeholder="Enter your last name" >
+      </div>
+
+      <div class="input-box">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" >
+      </div>
+
+      <div class="input-box">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Create a password" >
+      </div>
+
+      <div class="input-box">
+        <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" placeholder="Confirm your password" >
+      </div>
+
+      <div class="input-box">
+        <label for="configuration">Select Configuration</label>
+        <select id="configuration" >
+          <option value="admin">Admin</option>
+          <!-- <option value="manager">Manager</option> -->
+          <option value="developer">Developer</option>
+        </select>
+      </div>
+
+      <!-- <div class="input-box">
+        <label>Select an Avatar</label>
+        <div class="avatar-options">
+          <label>
+            <input type="radio" name="avatar" value="../images/1.jpg">
+            <img src="../images/1.jpg" alt="Avatar 1">
+          </label>
+          <label>
+            <input type="radio" name="avatar" value="../images/2.jpg">
+            <img src="../images/2.jpg" alt="Avatar 2">
+          </label>
+          <label>
+            <input type="radio" name="avatar" value="../images/3.jpg">
+            <img src="../images/3.jpg" alt="Avatar 3">
+          </label>
+        </div>
+      </div> -->
+
+      <div id="addPicDiv">
+        <label for="profilePicInput" id="addPicLabel">Add a Profile Picture</label>
+        <br>
+        <input type="file" data-mdb-button-init data-mdb-ripple-init class="form-control" id="profilePicInput"></input>
+      </div>
+
+      <br>
+      
+      <div class="policy">
+        <input type="checkbox" id="terms" required>
+        <label for="terms">I accept the terms & conditions</label>
+      </div>
+
+      <div class="input-box button">
+        <input id="registerBtn" type="submit" value="Register Now">
+      </div>
+
+      <div class="text">
+        <h3>Already have an account? <a href="./login.html">Login now</a></h3>
+      </div>
+
+      <p id="panda">&#128060</p>
+
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="../javascript/registration.js"></script>
+</body>
+
+</html>
