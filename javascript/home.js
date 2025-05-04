@@ -8,8 +8,14 @@ function loadProfileInfo() {
   const user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
   const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
   const apis = [];
-  if (profile.weatherApi) apis.push('Weather (Open-Meteo)');
-  if (profile.stockApi) apis.push('Stock Market (Alpha Vantage)');
+  if (profile.weatherApi)
+    {
+      apis.push('Weather (Open-Meteo)');
+    } 
+
+    if (profile.stockApi) {
+      apis.push('Stock Market (Alpha Vantage)');
+    }
 
   let weatherSection = '';
   if (profile.weatherApi) {
@@ -23,7 +29,7 @@ function loadProfileInfo() {
 
   document.getElementById('profile-info').innerHTML =
     '<div class="profile-image-section">' +
-      '<img src="' + (user.profilePicture || '../pics/defaultPic.jpeg') + '" alt="Profile Image" width="100">' +
+      '<img src="' + (user.profilePicture || '../pics/defaultPic.png') + '" alt="Profile Image" width="100">' +
     '</div>' +
     '<div class="profile-details">' +
       '<p><strong>First Name:</strong> ' + (user.firstName || '') + '</p>' +
@@ -40,7 +46,9 @@ function loadProfileInfo() {
 
   if (profile.weatherApi) {
     fetch('https://api.open-meteo.com/v1/forecast?latitude=31.8014&longitude=34.6436&current_weather=true')
-      .then(function(res) { return res.json(); })
+      .then(function(res) { 
+        return res.json(); 
+      })
       .then(function(data) {
         const weather = data.current_weather;
         document.getElementById('weather-info').textContent =
@@ -54,13 +62,13 @@ function loadProfileInfo() {
   if (profile.stockApi) {
     const apiKey = 'M5G24M5GCXG3UBTV';
     const symbols = [
-      { symbol: 'GOOGL', name: 'Google' },
+      { symbol: 'GOOGLE', name: 'Google' },
       { symbol: 'META', name: 'Meta' },
       { symbol: 'TSLA', name: 'Tesla' },
       { symbol: 'FB', name: 'Facebook' }
     ];
     
-    let table = '<table style="width:100%;margin-top:10px;border-collapse:collapse;">' +
+    let table = '<table style="width:100%;margin-top:10px;border-collapse:collapse;" id="currencyTable">' +
       '<tr>' +
         '<th style="text-align:left;padding:4px;">Symbol</th>' +
         '<th style="text-align:left;padding:4px;">Name</th>' +

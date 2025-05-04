@@ -1,10 +1,9 @@
 class USER {
-  constructor(firstName, lastName, email, password, configuration, userId, profilePicture) {
+  constructor(firstName, lastName, email, password, userId, profilePicture) {
     this.firstName = firstName;
     this.lastName = lastName
     this.email = email;
     this.password = password;;
-    this.configuration = configuration;
     this.userId = userId;
     this.profilePicture = profilePicture;
   }
@@ -17,10 +16,8 @@ $("#registerBtn").click(async () => {
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
   let confirmPassword = document.getElementById("confirm-password").value;
-  let configuration = document.getElementById("configuration").value;
-  let termsAccepted = document.getElementById("terms").checked;
 
-  if (firstName == "" || lastName == "" || email == "" || password == "" || confirmPassword == "" || configuration == "" || termsAccepted == "") {
+  if (firstName == "" || lastName == "" || email == "" || password == "" || confirmPassword == "") {
     alert("All fields are required.");
     return;
   } else {
@@ -30,7 +27,7 @@ $("#registerBtn").click(async () => {
       return;
     } else {
       let users = JSON.parse(localStorage.getItem("USERS")) || [];
-      let newUSER = new USER(firstName, lastName, email, password, configuration);
+      let newUSER = new USER(firstName, lastName, email, password);
       //Checking if an Email is already registered:
       if (!checkEmail(email, users)) {
         return; //Stops the registration if an Email is already taken
@@ -50,7 +47,6 @@ $("#registerBtn").click(async () => {
         localStorage.setItem("USERS", JSON.stringify([newUSER]));
       }
     }
-    alert(`New ${configuration.toUpperCase()} registered successfuliy!`);
     clearInputs();
     window.location.href = "./login.html";
   }
@@ -77,9 +73,7 @@ function clearInputs() {
   $("#email").val("");
   $("#password").val("");
   $("#confirm-password").val("");
-  $("#configuration").val("admin")
   $("#profilePicInput").val("")
-  document.getElementById("terms").checked = false;
 }
 
 
@@ -87,7 +81,7 @@ function clearInputs() {
 function convertProfilePic() {
   const file = document.getElementById("profilePicInput").files[0];
   if (!file) {
-    return "../pics/defaultPic.jpeg";
+    return "../pics/defaultPic.png";
   }
   else {
     return new Promise((resolve) => {

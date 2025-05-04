@@ -9,12 +9,12 @@
 
 body {
   min-height: 100vh;
-  background: #4070f4;
+  background: white;
 }
 
 .navbar {
-  width: 100vw;
-  background: #4070f4;
+  width: 100%;
+  background: #afbfec;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -67,7 +67,7 @@ body {
   position: relative;
   max-width: 500px;
   width: 100%;
-  background: #fff;
+  background: #b7bede;
   padding: 34px;
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -189,8 +189,8 @@ body {
 }
 
 .profile-link {
-  background: #fff;
-  color: #4070f4;
+  background:   #4070f4;
+  color: #fff;
   border: none;
   border-radius: 6px;
   padding: 8px 16px;
@@ -205,4 +205,21 @@ body {
 .profile-link:hover {
   background: #0e4bf1;
   color: #fff;
+}
+
+#currencyTable, th, tr
+{
+    border: 1px solid black;
+}
+
+.footer
+{
+  background-color: #afbfec;
+    color: white;
+    text-align: center;
+    padding: 2px;
+    bottom: 0;
+    width: 100%;
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
