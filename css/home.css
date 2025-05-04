@@ -2,3 +2,434 @@
 {
     border: 1px solid black;
 }
+
+:root {
+  --primary-color: #007AFF;
+  --background-color: #F2F2F7;
+  --text-color: #1C1C1E;
+  --secondary-text: #8E8E93;
+  --card-background: #FFFFFF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--card-background);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#nav-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.navbar-right {
+  display: flex;
+  gap: 15px;
+}
+
+.profile-link, #logout-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s;
+}
+
+.profile-link:hover, #logout-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Weather Container Styles */
+.weather-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.location-container {
+  text-align: center;
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease-out;
+}
+
+.location-name {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.current-time {
+  color: var(--secondary-text);
+  font-size: 1rem;
+}
+
+.current-weather {
+  background-color: var(--card-background);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.8s ease-out;
+}
+
+.weather-icon {
+  font-size: 4rem;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+  animation: pulse 2s infinite;
+}
+
+.temperature {
+  font-size: 3.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.weather-description {
+  color: var(--secondary-text);
+  font-size: 1.2rem;
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.detail-item {
+  background-color: var(--card-background);
+  padding: 15px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  animation: slideUp 0.8s ease-out 0.2s backwards;
+}
+
+.detail-item i {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+}
+
+.forecast-container {
+  background-color: var(--card-background);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.8s ease-out 0.4s backwards;
+}
+
+.forecast-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.forecast-items {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.forecast-day {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.forecast-day:hover {
+  transform: scale(1.05);
+}
+
+.forecast-date {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--secondary-text);
+}
+
+.forecast-icon {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+}
+
+.forecast-temp {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.max-temp {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.min-temp {
+  color: var(--secondary-text);
+}
+
+/* Background Animation */
+.weather-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #007AFF20, #00BFFF20);
+  animation: gradientShift 15s ease infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Footer Styles */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+  background-color: var(--card-background);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  font-size: 0.8rem;
+  color: var(--secondary-text);
+}
+
+/* Profile Section Styles */
+.profile-section {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-card {
+  background-color: var(--card-background);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.8s ease-out;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+#profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary-color);
+}
+
+.profile-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.profile-info p {
+  color: var(--secondary-text);
+  font-size: 1rem;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: var(--background-color);
+  border-radius: 15px;
+}
+
+.stat-item i {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+
+/* Stock Market Styles */
+.stock-container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.stock-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.stock-refresh {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--secondary-text);
+  font-size: 0.9rem;
+}
+
+.stock-refresh i {
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.stock-refresh i:hover {
+  transform: rotate(180deg);
+}
+
+.stock-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.stock-card {
+  background-color: var(--card-background);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.8s ease-out;
+  transition: transform 0.3s;
+}
+
+.stock-card:hover {
+  transform: translateY(-5px);
+}
+
+.stock-info {
+  margin-bottom: 15px;
+}
+
+.stock-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.stock-symbol {
+  color: var(--secondary-text);
+  font-size: 0.9rem;
+}
+
+.stock-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.price-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.price-change {
+  font-size: 0.9rem;
+}
+
+.price-change.positive {
+  color: #34C759;
+}
+
+.price-change.negative {
+  color: #FF3B30;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .stock-cards {
+    grid-template-columns: 1fr;
+  }
+}

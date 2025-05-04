@@ -60,9 +60,41 @@ function loadProfile() {
       email: user.email
     };
     localStorage.setItem('userProfile', JSON.stringify(profile));
+    const selectedAPIs = [];
+    if (weatherApi) selectedAPIs.push('weather');
+    if (stockApi) selectedAPIs.push('stock');
+    localStorage.setItem('selectedAPIs', JSON.stringify(selectedAPIs));
     alert('Profile saved!');
     window.location.href = "home.html"; // Redirect to home after save
   };
   
+  // Load existing profile data on page load
+  const existingProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+  if (existingProfile) {
+    document.getElementById('first-name').value = existingProfile.firstName || '';
+    document.getElementById('last-name').value = existingProfile.lastName || '';
+    document.getElementById('age').value = existingProfile.age || '';
+    document.getElementById('email').value = existingProfile.email || '';
+  }
+
+  // Load existing API selections
+  const selectedAPIs = JSON.parse(localStorage.getItem('selectedAPIs') || '[]');
+  selectedAPIs.forEach(api => {
+    document.getElementById(`${api}-api`).checked = true;
+  });
+
   // Load profile on page load
-  window.onload = loadProfile;
+  window.onload = function() {
+    loadProfile();
+    
+    // Set navigation bar details
+    const userProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+    const userEmail = userProfile.email || 'User';
+    $('#nav-user-name').text(userEmail);
+    
+    // Logout functionality
+    $('#logout-btn').on('click', function() {
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = 'login.html';
+    });
+  };

@@ -10,7 +10,7 @@ $("#logInBtn").click(function() {
   for (let i = 0; i < users.length; i++) {
     const user = users[i];
     if (user.email === email && user.password === password) {
-      localStorage.setItem("currentUSER", JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(user));
       const profile = JSON.parse(localStorage.getItem("userProfile") || "{}");
       if (!profile.email || profile.email !== user.email) {
         window.location.href = "profile.html";
