@@ -187,3 +187,22 @@ body {
 .api-selection ul {
   margin: 8px 0 0 16px;
 }
+
+.profile-link {
+  background: #fff;
+  color: #4070f4;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 12px;
+  transition: background 0.3s, color 0.3s;
+  display: inline-block;
+}
+.profile-link:hover {
+  background: #0e4bf1;
+  color: #fff;
+}

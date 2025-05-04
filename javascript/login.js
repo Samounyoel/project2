@@ -19,9 +19,17 @@ $("#logInBtn").click(() => {
               // Redirect to the manager's home page
               window.location.href = "./home-manager.html";
             } else {
-             
-              
-                  window.location.href = 'profile.html';
+              // Check if userProfile exists and matches this user's email
+              const profile = JSON.parse(localStorage.getItem("userProfile") || "{}");
+              if (!profile.email || profile.email !== user.email) {
+                // New user or no profile info yet
+                // Save the email in userProfile for future checks
+                localStorage.setItem("userProfile", JSON.stringify({ email: user.email }));
+                window.location.href = 'profile.html';
+              } else {
+                // Returning user
+                window.location.href = 'home.html';
+              }
             }
 
             clearInputs();

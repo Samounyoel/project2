@@ -40,14 +40,15 @@ function loadProfile() {
     const weatherApi = document.getElementById('weather-api').checked;
     const stockApi = document.getElementById('stock-api').checked;
     // Save to userProfile in localStorage
+    const user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
     const profile = {
       age,
       weatherApi,
-      stockApi
+      stockApi,
+      email: user.email
     };
     localStorage.setItem('userProfile', JSON.stringify(profile));
     // Also update name fields in currentUSER
-    let user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
     user.firstName = document.getElementById('first-name').value;
     user.lastName = document.getElementById('last-name').value;
     localStorage.setItem('currentUSER', JSON.stringify(user));
