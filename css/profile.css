@@ -1,27 +1,131 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #4070f4;
+}
+
 .profile-container {
-    max-width: 400px;
-    margin: 40px auto;
-    padding: 24px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: #fafafa;
-  }
-  .profile-image-section {
-    text-align: center;
-    margin-bottom: 16px;
-  }
-  .profile-image-section img {
-    border-radius: 50%;
-    margin-bottom: 8px;
-  }
-  form label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  .api-selection {
-    margin: 16px 0;
-  }
-  button {
-    padding: 8px 16px;
-    margin-top: 8px;
-  }
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  background: #fff;
+  padding: 34px;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-container h2 {
+  position: relative;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.profile-container h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 28px;
+  border-radius: 12px;
+  background: #4070f4;
+}
+
+.profile-image-section {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.profile-image-section img {
+  border-radius: 50%;
+  margin-bottom: 8px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 2px solid #4070f4;
+}
+
+#update-img-btn {
+  margin-top: 8px;
+  background: #4070f4;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+#update-img-btn:hover {
+  background: #0e4bf1;
+}
+
+#profile-form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+#profile-form input[type="text"],
+#profile-form input[type="number"],
+#profile-form input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  border: 1.5px solid #C7BEBE;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  transition: all 0.3s ease;
+}
+
+#profile-form input[type="text"]:focus,
+#profile-form input[type="number"]:focus,
+#profile-form input[type="email"]:focus {
+  border-color: #4070f4;
+}
+
+.api-selection {
+  margin: 16px 0;
+}
+
+.api-selection label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-right: 20px;
+}
+
+#profile-form button[type="submit"] {
+  color: #fff;
+  letter-spacing: 1px;
+  border: none;
+  background: #4070f4;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+#profile-form button[type="submit"]:hover {
+  background: #0e4bf1;
+}
