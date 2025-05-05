@@ -2,27 +2,153 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Home</title>
-  <link rel="stylesheet" href="../css/profile.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="../css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="navbar-user">
-      <img id="nav-profile-img" src="../pics/defaultPic.png" alt="Profile" />
-      <span id="nav-user-name"></span>
-      <a id="profile-link" href="profile.html" class="profile-link">Update Profile</a>
+  <div class="app-container">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="navbar-left">
+        <img id="nav-profile-img" src="../pics/defaultPic.png" alt="Profile" />
+        <span id="nav-user-name"></span>
+      </div>
+      <div class="navbar-right">
+        <a id="profile-link" href="profile.html" class="profile-link"><i class="fas fa-user"></i></a>
+        <button id="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
+      </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <div class="profile-section">
+      <div class="profile-card">
+        <div class="profile-header">
+          <img id="profile-pic" src="../pics/defaultPic.png" alt="Profile Picture">
+          <div class="profile-info">
+            <h2 id="profile-name"></h2>
+            <p id="profile-email"></p>
+          </div>
+        </div>
+        <div class="profile-stats">
+          <div class="stat-item">
+            <i class="fas fa-calendar"></i>
+            <span id="profile-age"></span>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Ashdod, Israel</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <button id="logout-btn">Disconnect</button>
-  </nav>
-  <div class="main-content">
-    <div class="profile-container" id="profile-info">
+
+    <!-- Weather Section -->
+    <div class="weather-container">
+      <div class="location-container">
+        <h1 class="location-name">Loading...</h1>
+        <p class="current-time">Loading...</p>
+      </div>
+
+      <div class="current-weather">
+        <div class="weather-icon">
+          <i class="fas fa-sun"></i>
+        </div>
+        <div class="temperature">
+          <span class="temp-value">--</span>
+          <span class="temp-unit">°C</span>
+        </div>
+        <div class="weather-description">Loading...</div>
+      </div>
+
+      <div class="weather-details">
+        <div class="detail-item">
+          <i class="fas fa-wind"></i>
+          <span class="wind-speed">-- km/h</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-tint"></i>
+          <span class="humidity">--%</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-compress-arrows-alt"></i>
+          <span class="pressure">-- hPa</span>
+        </div>
+      </div>
+
+      <div class="forecast-container">
+        <div class="forecast-title">5-Day Forecast</div>
+        <div class="forecast-items">
+          <!-- Forecast items will be added dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Stock Market Section -->
+    <div class="stock-container">
+      <div class="stock-header">
+        <h2>Stock Market</h2>
+        <div class="stock-refresh">
+          <i class="fas fa-sync-alt"></i>
+          <span>Last updated: <span id="stock-update-time">--:--</span></span>
+        </div>
+      </div>
+      <div class="stock-cards">
+        <div class="stock-card" id="stock-meta">
+          <div class="stock-info">
+            <div class="stock-name">Meta</div>
+            <div class="stock-symbol">META</div>
+          </div>
+          <div class="stock-price">
+            <span class="price-value">--</span>
+            <span class="price-change">--</span>
+          </div>
+        </div>
+        <div class="stock-card" id="stock-apple">
+          <div class="stock-info">
+            <div class="stock-name">Apple</div>
+            <div class="stock-symbol">AAPL</div>
+          </div>
+          <div class="stock-price">
+            <span class="price-value">--</span>
+            <span class="price-change">--</span>
+          </div>
+        </div>
+        <div class="stock-card" id="stock-microsoft">
+          <div class="stock-info">
+            <div class="stock-name">Microsoft</div>
+            <div class="stock-symbol">MSFT</div>
+          </div>
+          <div class="stock-price">
+            <span class="price-value">--</span>
+            <span class="price-change">--</span>
+          </div>
+        </div>
+        <div class="stock-card" id="stock-amazon">
+          <div class="stock-info">
+            <div class="stock-name">Amazon</div>
+            <div class="stock-symbol">AMZN</div>
+          </div>
+          <div class="stock-price">
+            <span class="price-value">--</span>
+            <span class="price-change">--</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Background Animation -->
+    <div class="weather-bg">
+      <div class="particles"></div>
     </div>
   </div>
 
   <footer class="footer">
     <p><strong> Ⓒ Created by : Tevel Halilit Dabush & Yoel Samoun Ⓒ</strong></p>
-</footer>
+  </footer>
+
   <script src="../javascript/home.js"></script>
 </body>
 </html>
