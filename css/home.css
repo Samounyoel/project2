@@ -423,6 +423,11 @@ body {
   color: #FF3B30;
 }
 
+#aboutProfile
+{
+  margin-top: 7px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .profile-stats {
@@ -433,3 +438,4 @@ body {
     grid-template-columns: 1fr;
   }
 }
+

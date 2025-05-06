@@ -14,7 +14,7 @@ $(document).ready(function() {
   $('#profile-pic').attr('src', user.profilePicture || '../pics/defaultPic.png');
   $('#profile-name').text(`${user.firstName || ''} ${user.lastName || ''}`);
   $('#profile-email').text(user.email || '');
-
+  $("#profile-about").text(user.about || '');
   // Get user profile data
   const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
   const apis = JSON.parse(localStorage.getItem('selectedAPIs') || '[]');

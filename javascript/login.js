@@ -9,7 +9,7 @@ $("#logInBtn").click(function() {
   let found = false;
   for (let i = 0; i < users.length; i++) {
     const user = users[i];
-    if (user.email === email && user.password === password) {
+    if (user.email == email && user.password == password) {
       localStorage.setItem("user", JSON.stringify(user));
       const profile = JSON.parse(localStorage.getItem("userProfile") || "{}");
       if (!profile.email || profile.email !== user.email) {
