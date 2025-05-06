@@ -1,135 +1,29 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+/* Specific styles for login page can go here if needed */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #4070f4;
-}
-
-.wrapper {
-  position: relative;
-  max-width: 500px;
-  width: 100%;
-  background: #fff;
-  padding: 34px;
-  border-radius: 6px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-}
-
-.wrapper h2 {
-  position: relative;
-  font-size: 22px;
-  font-weight: 600;
-  color: #333;
-}
-
+/* Overriding the h2 underline from the original login.css as it might not fit the new design */
 .wrapper h2::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: 24px;
-  border-radius: 12px;
-  background: #4070f4;
+  display: none; /* Or style it differently if you want to keep an underline */
 }
 
-.wrapper #loginForm {
-  margin-top: 30px;
-}
-
+/* Adjustments for input-box within the #loginForm if specifically needed */
 .wrapper #loginForm .input-box {
-  margin: 15px 0;
+  margin: 18px 0; /* Slightly adjust margin or keep as is from auth-styles.css */
 }
 
-#loginForm .input-box label {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-#loginForm .input-box input,
-#loginForm .input-box select,
-#loginForm .input-box file {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  font-weight: 400;
-  border: 1.5px solid #C7BEBE;
-  border-radius: 6px;
-  margin-top: 5px;
-  transition: all 0.3s ease;
-}
-
-#loginForm .input-box input:focus,
-#loginForm .input-box select:focus,
-#loginForm .input-box file:focus {
-  border-color: #4070f4;
-}
-
-#loginForm .policy {
-  display: flex;
-  align-items: center;
-}
-
+/* Policy text styling, if this class is used in login.html */
 #loginForm .policy label {
-  font-size: 14px;
-  font-weight: 500;
-  margin-left: 10px;
-  color: #707070;
+  font-size: 0.85rem; /* Adjust to match general text feel */
+  color: var(--secondary-text);
+  margin-left: 8px;
 }
 
-.input-box.button input {
-  color: #fff;
-  letter-spacing: 1px;
-  border: none;
-  background: #4070f4;
-  cursor: pointer;
-  padding: 10px 20px;
-  font-size: 16px;
-}
-
-.input-box.button input:hover {
-  background: #0e4bf1;
-}
-
-#loginForm .text h3 {
-  color: #333;
-  width: 100%;
+/* Styles for elements like #panda can remain if they are unique to login page */
+/* and not covered by general tags in auth-styles.css */
+#panda {
   text-align: center;
+  font-size: 1rem; /* Ensure consistency with auth-styles.css font sizing */
+  margin-top: 15px;
 }
 
-#loginForm .text h3 a {
-  color: #4070f4;
-  text-decoration: none;
-}
-
-#loginForm .text h3 a:hover {
-  text-decoration: underline;
-}
-
-small {
-  font-size: 12px;
-  color: #707070;
-}
-
-h3{
-    font-size: 18px;
-    font-weight: bold;
-}
-
-#panda{
-    text-align: center;
-    font-size: 18px;
-}
+/* General h3 styling is covered by auth-styles.css. */
+/* If a more specific h3 style for login is needed, it can be added here. */

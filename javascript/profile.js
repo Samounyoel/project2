@@ -1,6 +1,6 @@
 // Load user data from localStorage
 function loadProfile() {
-  const user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
   if (user.firstName)
   {
     document.getElementById('first-name').value = user.firstName;
@@ -45,9 +45,9 @@ imgInput.onchange = function() {
     reader.onload = function(e) {
       imgPreview.src = e.target.result;
       // Save to currentUSER in localStorage
-      const user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
       user.profilePicture = e.target.result;
-      localStorage.setItem('currentUSER', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
     };
     reader.readAsDataURL(file);
   }
@@ -60,11 +60,11 @@ document.getElementById('profile-form').onsubmit = function(e) {
   const weatherApi = document.getElementById('weather-api').checked;
   const stockApi = document.getElementById('stock-api').checked;
   // Save to userProfile in localStorage
-  const user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
   user.firstName = document.getElementById('first-name').value;
   user.lastName = document.getElementById('last-name').value;
   user.about = document.getElementById('about').value;
-  localStorage.setItem('currentUSER', JSON.stringify(user));
+  localStorage.setItem('user', JSON.stringify(user));
   const profile = {
     age: age,
     weatherApi: weatherApi,
@@ -77,6 +77,28 @@ document.getElementById('profile-form').onsubmit = function(e) {
   if (weatherApi) selectedAPIs.push('weather');
   if (stockApi) selectedAPIs.push('stock');
   localStorage.setItem('selectedAPIs', JSON.stringify(selectedAPIs));
+
+  // Update the USERS array in localStorage
+  let users = JSON.parse(localStorage.getItem('USERS') || '[]');
+  const userIndex = users.findIndex(u => u.userId === user.userId);
+  if (userIndex !== -1) {
+    users[userIndex].firstName = user.firstName;
+    users[userIndex].lastName = user.lastName;
+    users[userIndex].profilePicture = user.profilePicture;
+    users[userIndex].about = user.about;
+    localStorage.setItem('USERS', JSON.stringify(users));
+  } else {
+    // This case should ideally not happen if user was registered properly
+    // but as a fallback, if the user is not in USERS, add them.
+    // This might occur if USERS array was cleared or an old 'user' item exists without a corresponding USERS entry.
+    users.push(user);
+    localStorage.setItem('USERS', JSON.stringify(users));
+  }
+
+  if (localStorage.getItem('isNewUser') === 'true') {
+    localStorage.removeItem('isNewUser');
+  }
+
   alert('Profile saved!');
   window.location.href = "home.html"; // Redirect to home after save
 };
@@ -102,13 +124,19 @@ window.onload = function() {
   loadProfile();
   
   // Set navigation bar details
-  const userProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-  const userEmail = userProfile.email || 'User';
-  $('#nav-user-name').text(userEmail);
+    const loggedInUser = JSON.parse(localStorage.getItem('user') || '{}');
+  const userEmail = loggedInUser.email || 'User';
+  $('#nav-user-name').text(loggedInUser.firstName ? loggedInUser.firstName : userEmail); // Display first name if available
+  if(loggedInUser.profilePicture) {
+    $('#nav-user-pic').attr('src', loggedInUser.profilePicture); // Assuming you have an img tag with id nav-user-pic
+  }
   
   // Logout functionality
   $('#logout-btn').on('click', function() {
-    localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('user');
+    localStorage.removeItem('userProfile');
+    localStorage.removeItem('selectedAPIs');
+    // Do not remove 'isNewUser' here, it's handled on profile save
     window.location.href = 'login.html';
   });
 };

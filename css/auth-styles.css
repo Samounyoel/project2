@@ -1,0 +1,239 @@
+:root {
+  --primary-color: #007AFF;
+  --background-color: #F2F2F7;
+  --text-color: #1C1C1E;
+  --secondary-text: #8E8E93;
+  --card-background: #FFFFFF;
+  --danger-color: #FF3B30;
+  --success-color: #34C759;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.wrapper {
+  background-color: var(--card-background);
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px; /* Adjusted for typical auth forms */
+  text-align: center;
+}
+
+.wrapper h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: var(--text-color);
+}
+
+.input-box {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-box label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--secondary-text);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.input-box input[type="text"],
+.input-box input[type="email"],
+.input-box input[type="password"],
+.input-box textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #D1D1D6; /* Light border for inputs */
+  border-radius: 10px;
+  background-color: #F9F9F9; /* Slightly off-white for input background */
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-box input[type="text"]:focus,
+.input-box input[type="email"]:focus,
+.input-box input[type="password"]:focus,
+.input-box textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+}
+
+.input-box input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #D1D1D6;
+  background-color: #F9F9F9;
+  font-size: 0.9rem;
+}
+
+/* Button Styles */
+.button input[type="submit"],
+.button button,
+button.primary-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.button input[type="submit"]:hover,
+.button button:hover,
+button.primary-btn:hover {
+  background-color: #005ECB; /* Darker shade of primary */
+}
+
+.button input[type="submit"]:active,
+.button button:active,
+button.primary-btn:active {
+  transform: scale(0.98);
+}
+
+.text h3 {
+  color: var(--secondary-text);
+  font-weight: normal;
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
+
+.text h3 a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.text h3 a:hover {
+  text-decoration: underline;
+}
+
+/* Profile page specific styles (can be extended in profile.css) */
+.profile-form-container {
+  background-color: var(--card-background);
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; /* Profile might be wider */
+}
+
+#addPicDiv {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+#addPicLabel {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--secondary-text);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* Navbar styling (for profile page) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--card-background);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: fixed; /* Changed from sticky to fixed for auth pages if needed */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#nav-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#nav-user-name {
+  font-weight: 500;
+}
+
+.navbar-right {
+  display: flex;
+  gap: 15px;
+}
+
+.navbar-right .profile-link, 
+.navbar-right #logout-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s;
+}
+
+.navbar-right .profile-link:hover, 
+.navbar-right #logout-btn:hover {
+  transform: scale(1.1);
+}
+
+.app-container {
+  padding-top: 80px; /* Adjust if navbar is fixed */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content within app-container */
+}
+
+/* Alert/Message Styling (optional, can be expanded) */
+.alert-message {
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.alert-danger {
+    background-color: rgba(255, 59, 48, 0.1);
+    color: var(--danger-color);
+    border: 1px solid rgba(255, 59, 48, 0.2);
+}
+
+.alert-success {
+    background-color: rgba(52, 199, 89, 0.1);
+    color: var(--success-color);
+    border: 1px solid rgba(52, 199, 89, 0.2);
+}
+
