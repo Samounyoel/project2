@@ -307,8 +307,22 @@ body {
   color: rgb(234, 234, 137);
 }
 
+#link
+{
+  text-decoration: none;
+}
 
+#hPaIcon
+{
+  animation: scaleHpA 3s linear infinite;
+
+}
 /* Animations */
+
+@keyframes scaleHpA {
+  0% {transform: scale(1);}
+ 100% {transform: scale(0.6);}
+}
 @keyframes rotateSun {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -320,11 +334,11 @@ body {
     opacity: 1;
   }
   70% {
-    transform: translateY(30px); /* הטיפה יורדת למטה */
+    transform: translateY(18px); /* הטיפה יורדת למטה */
     opacity: 1;
   }
   80% {
-    transform: translateY(30px); /* נשארת למטה */
+    transform: translateY(18px); /* נשארת למטה */
     opacity: 0; /* הטיפה נעלמת */
   }
   100% {
@@ -335,7 +349,7 @@ body {
 
 @keyframes windSpin {
   0% { transform: translateX(0); opacity: 1; }
-  100% { transform: translateX(20px); opacity: 0.1; }
+  100% { transform: translateX(13px); opacity: 0.1; }
 }
 
 @keyframes fadeIn {
@@ -435,11 +449,16 @@ body {
   animation: fadeIn 5s ease-in-out;
 }
 
-.profile-section:hover, .current-weather:hover, .detail-item:hover, #forecast-4days:hover
+.profile-section:hover, .current-weather:hover, .detail-item:hover
 {
   transform: scale(1.03);
 }
 
+#forecast-4days:hover
+{
+  transform: scale(1.03);
+  transition: 0.1s;
+}
 .profile-stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

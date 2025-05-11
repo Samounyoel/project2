@@ -41,7 +41,16 @@ $(document).ready(function() {
   $('#profile-name').text(`${user.firstName || ''} ${user.lastName || ''}`);
   $('#profile-email').text(user.email || '');
   $("#profile-about").text(user.about || '');
-  $("#profile-linkedinLink").text(user.linkedinLink || 'Linkedin');
+
+  if (user.linkedinLink) {
+    const linkedinLink = user.linkedinLink.trim();
+    const anchor = document.getElementById('link');
+    anchor.href = linkedinLink;
+    anchor.style.display = 'inline'; // ודא שהקישור נראה
+  } else {
+    document.getElementById('link').style.display = 'none'; // הסתר אם אין לינק
+  }
+
   // Get user profile data
   const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
   const apis = JSON.parse(localStorage.getItem('selectedAPIs') || '[]');

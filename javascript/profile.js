@@ -15,16 +15,22 @@ function loadProfile() {
   {
     document.getElementById('profile-img').src = user.profilePicture;
   }
-    document.getElementById('about').value = "";
-
+  if (user.about)
+  {
+    document.getElementById('about').value = user.about;
+  }
 
   
   // Age and API preferences (if previously set)
   const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-
-    document.getElementById('age').value = "";
-    document.getElementById('linkedinLink').value = "";
-
+  if (profile.age)
+  {
+    document.getElementById('age').value = profile.age;
+  } 
+  if(profile.linkedinLink)
+  {
+    document.getElementById('profile-linkedinLink').value = profile.linkedinLink;
+  }
   document.getElementById('weather-api').checked = !!profile.weatherApi;
   document.getElementById('stock-api').checked = !!profile.stockApi;
 }
