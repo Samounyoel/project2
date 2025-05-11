@@ -15,6 +15,60 @@ $(window).on('scroll', function() {
 
 
 $(document).ready(function() {
+  // Function to Populate Global Skills
+  function populateGlobalSkills(globalCompetencies) {
+      const skillsList = $('#global-skills-list');
+      skillsList.empty(); 
+
+      if (globalCompetencies && globalCompetencies.length > 0) {
+          globalCompetencies.forEach(skill => {
+              const skillTag = $('<span>').addClass('skill-tag').text(skill);
+              skillsList.append(skillTag);
+          });
+      } else {
+          skillsList.append($('<p>').addClass('empty-message').text('No skills listed yet.'));
+      }
+  }
+
+  // Function to Populate Projects
+  function populatePortfolioProjects(projects) {
+      const projectsContainer = $('#portfolio-projects-container');
+      projectsContainer.empty(); 
+
+      if (projects && projects.length > 0) {
+          projects.forEach(project => {
+              const projectCard = $('<div>').addClass('portfolio-project-card');
+
+              // Add project image if URL exists
+              if (project.image) {
+                  const projectImage = $('<img>').attr('src', project.image)
+                                               .addClass('portfolio-project-image')
+                                               .attr('alt', project.title || 'Project image'); // Add alt text
+                  projectCard.append(projectImage);
+              }
+
+              const projectTitle = $('<h3>').text(project.title || 'Untitled Project');
+              const projectDescription = $('<p>').text(project.description || 'No description available.');
+              
+              projectCard.append(projectTitle).append(projectDescription);
+
+              if (project.competencies && project.competencies.length > 0) {
+                  const competenciesContainer = $('<div>').addClass('project-competencies');
+                  const competenciesTitle = $('<h4>').text('Technologies Used:');
+                  const competenciesList = $('<ul>');
+                  project.competencies.forEach(comp => {
+                      competenciesList.append($('<li>').text(comp));
+                  });
+                  competenciesContainer.append(competenciesTitle).append(competenciesList);
+                  projectCard.append(competenciesContainer);
+              }
+              projectsContainer.append(projectCard);
+          });
+      } else {
+          projectsContainer.append($('<p>').addClass('empty-message').text('No projects added yet.'));
+      }
+  }
+
   // Check if user is logged in
   const user = JSON.parse(localStorage.getItem('user'));
   if (!user) {
@@ -36,24 +90,26 @@ $(document).ready(function() {
   $('#nav-profile-img').attr('src', user.profilePicture || '../pics/defaultPic.png');
   $('#nav-user-name').text(`${user.firstName || ''} ${user.lastName || ''}`);
 
-  // Update profile section
-  $('#profile-pic').attr('src', user.profilePicture || '../pics/defaultPic.png');
-  $('#profile-name').text(`${user.firstName || ''} ${user.lastName || ''}`);
-  $('#profile-email').text(user.email || '');
-  $("#profile-about").text(user.about || '');
-
-  if (user.linkedinLink) {
-    const linkedinLink = user.linkedinLink.trim();
-    const anchor = document.getElementById('link');
-    anchor.href = linkedinLink;
-    anchor.style.display = 'inline'; // ודא שהקישור נראה
+  // Update profile section (Hero Section)
+  $('#profile-pic-hero').attr('src', user.profilePicture || '../pics/defaultPic.png');
+  $('#profile-name-hero').text(`${user.firstName || ''} ${user.lastName || ''}`);
+  $("#profile-tagline-hero").text(user.about || ''); // About info becomes tagline
+  
+  // Update LinkedIn button in Hero
+  const linkedinLink = user.linkedinLink ? user.linkedinLink.trim() : '';
+  if (linkedinLink) {
+    $('#profile-linkedin-hero').attr('href', linkedinLink).show();
   } else {
-    document.getElementById('link').style.display = 'none'; // הסתר אם אין לינק
+    $('#profile-linkedin-hero').hide();
   }
 
   // Get user profile data
   const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
   const apis = JSON.parse(localStorage.getItem('selectedAPIs') || '[]');
+
+  // Populate new portfolio sections
+  populateGlobalSkills(profile.globalCompetencies);
+  populatePortfolioProjects(profile.projects);
 
   // Comprehensive profile rendering
   function renderProfileInfo() {
@@ -87,10 +143,7 @@ $(document).ready(function() {
   // Call the rendering function
   renderProfileInfo();
 
-  // Additional profile age display
-  if (profile.age) {
-    $('#profile-age').text(`${profile.age} years old`);
-  }
+  // Age is no longer displayed in the hero section
 
   // Logout functionality
   $('#logout-btn').click(function() {

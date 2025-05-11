@@ -122,20 +122,7 @@ body {
   border: 3px solid #eee; /* Lighter border */
 }
 
-#update-img-btn {
-  background-color: #5cb85c; /* Green color for update button */
-  color: white;
-  border: none;
-  padding: 8px 15px; /* Original padding */
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px; /* Original font size */
-  transition: background-color 0.2s ease;
-}
-
-#update-img-btn:hover {
-  background-color: #4cae4c; /* Darker green on hover */
-}
+/* #update-img-btn and #update-img-btn:hover styles are now part of the common button block below */
 
 .input-group {
   margin-bottom: 18px; /* Original margin */
@@ -179,21 +166,33 @@ body {
   margin-right: 20px;
 }
 
-#profile-form button[type="submit"] {
+#profile-form button[type="submit"],
+#update-img-btn,
+#add-project-btn,
+.remove-project-btn {
+  display: block;
+  width: 100%;
   color: #fff;
   letter-spacing: 1px;
   border: none;
-  background: #4070f4;
   cursor: pointer;
   padding: 10px 20px;
   font-size: 16px;
   border-radius: 6px;
   margin-top: 10px;
-  transition: background 0.3s;
+  margin-bottom: 15px;
+  transition: background-color 0.3s, background 0.3s;
+  background-color: #4070f4;
 }
 
-#profile-form button[type="submit"]:hover {
-  background: #0e4bf1;
+#update-img-btn {
+  margin-bottom: 25px;
+}
+
+/* #add-project-btn {} rule removed as it was empty */
+
+.remove-project-btn {
+  margin-top: 5px;
 }
 
 .profile-details {
@@ -223,6 +222,116 @@ body {
 .profile-link:hover {
   background: #0e4bf1;
   color: #fff;
+}
+
+.projects-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.projects-section h3 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.project-entry {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.project-entry h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #555;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.project-entry label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+  font-size: 0.9em;
+}
+
+.project-entry input[type="text"],
+.project-entry textarea,
+.project-entry select {
+  width: 100%; /* Changed from calc(100% - 20px) for consistency */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 0.95em;
+}
+
+.project-entry input[type="file"] {
+  margin-bottom: 15px;
+  display: block; /* Ensure it takes its own line */
+}
+
+.project-entry textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.project-entry select[multiple] {
+  min-height: 100px;
+  background-color: white;
+}
+
+/* Style for selected options in multi-select, browser-dependent */
+.project-entry select[multiple] option:checked {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Competencies Checkbox Group Styling */
+.competencies-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff; /* Background for the group */
+  margin-bottom: 15px;
+}
+
+.competencies-checkbox-group div {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Space between checkbox and its label */
+  background-color: #f8f9fa; /* Light background for each item */
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  transition: background-color 0.2s ease;
+}
+
+.competencies-checkbox-group div:hover {
+  background-color: #e9ecef; /* Slightly darker on hover */
+}
+
+.competencies-checkbox-group input[type=\"checkbox\"] {
+  margin-right: 5px; /* Keep a small margin if gap isn't enough */
+  accent-color: var(--primary-color); /* Color the checkbox itself */
+}
+
+.competencies-checkbox-group label {
+  font-weight: normal; /* Override bold from .project-entry label */
+  font-size: 0.9em;
+  color: #333;
+  margin-bottom: 0; /* Reset margin for these labels */
+  cursor: pointer; /* Make label clickable for checkbox */
 }
 
 #currencyTable, th, tr

@@ -28,7 +28,7 @@
       <div class="profile-image-section">
         <img id="profile-img" src="../pics/defaultPic.jpeg" alt="Profile Image" width="100">
         <input type="file" id="img-upload" accept="image/*" style="display:none;"><br>
-        <button id="update-img-btn">Update Image</button>
+        <button type="button" id="update-img-btn">Update Image</button>
       </div>
       <form id="profile-form">
         <label>
@@ -65,7 +65,160 @@
             Stock Market (Alpha Vantage)
           </label>
         </div>
-        <button type="submit">Save Profile</button>
+        <div class="global-competencies-section">
+          <h3>All my Competencies</h3>
+          <div class="competencies-checkbox-group" id="global-competencies-checkbox-group">
+            <div><input type="checkbox" id="global-java" name="global-competencies" value="java"><label for="global-java">Java</label></div>
+            <div><input type="checkbox" id="global-csharp" name="global-competencies" value="csharp"><label for="global-csharp">C#</label></div>
+            <div><input type="checkbox" id="global-cpp" name="global-competencies" value="cpp"><label for="global-cpp">C++</label></div>
+            <div><input type="checkbox" id="global-c" name="global-competencies" value="c"><label for="global-c">C</label></div>
+            <div><input type="checkbox" id="global-springboot" name="global-competencies" value="springboot"><label for="global-springboot">Spring Boot</label></div>
+            <div><input type="checkbox" id="global-dotnet" name="global-competencies" value="dotnet"><label for="global-dotnet">.NET Framework</label></div>
+            <div><input type="checkbox" id="global-react" name="global-competencies" value="react"><label for="global-react">React</label></div>
+            <div><input type="checkbox" id="global-javascript" name="global-competencies" value="javascript"><label for="global-javascript">JavaScript</label></div>
+            <div><input type="checkbox" id="global-html" name="global-competencies" value="html"><label for="global-html">HTML</label></div>
+            <div><input type="checkbox" id="global-css" name="global-competencies" value="css"><label for="global-css">CSS</label></div>
+            <div><input type="checkbox" id="global-tailwindcss" name="global-competencies" value="tailwindcss"><label for="global-tailwindcss">Tailwind CSS</label></div>
+            <div><input type="checkbox" id="global-mongodb" name="global-competencies" value="mongodb"><label for="global-mongodb">MongoDB</label></div>
+            <div><input type="checkbox" id="global-postgresql" name="global-competencies" value="postgresql"><label for="global-postgresql">PostgreSQL</label></div>
+            <div><input type="checkbox" id="global-sql" name="global-competencies" value="sql"><label for="global-sql">SQL</label></div>
+            <div><input type="checkbox" id="global-git" name="global-competencies" value="git"><label for="global-git">Git</label></div>
+            <div><input type="checkbox" id="global-docker" name="global-competencies" value="docker"><label for="global-docker">Docker</label></div>
+            <div><input type="checkbox" id="global-postman" name="global-competencies" value="postman"><label for="global-postman">Postman</label></div>
+            <div><input type="checkbox" id="global-wireshark" name="global-competencies" value="wireshark"><label for="global-wireshark">Wireshark</label></div>
+            <div><input type="checkbox" id="global-javafx" name="global-competencies" value="javafx"><label for="global-javafx">JavaFX</label></div>
+            <div><input type="checkbox" id="global-winforms" name="global-competencies" value="winforms"><label for="global-winforms">WinForms</label></div>
+          </div>
+        </div>
+        <div class="projects-section">
+          <h3>My Projects</h3>
+          <div id="project-entries">
+            <div class="project-entry" id="project-entry-1">
+              <h4>Project 1</h4>
+              <label>
+                Project Image URL:
+                <input type="url" class="project-image-url" placeholder="https://example.com/image.jpg">
+              </label>
+              <label>
+                Project Title:
+                <input type="text" class="project-title">
+              </label>
+              <label>
+                Project Description:
+                <textarea class="project-description"></textarea>
+              </label>
+              <label>
+                Competencies:
+                <div class="competencies-checkbox-group">
+                  <div><input type="checkbox" id="java-1" name="competencies-1" value="java"><label for="java-1">Java</label></div>
+                  <div><input type="checkbox" id="csharp-1" name="competencies-1" value="csharp"><label for="csharp-1">C#</label></div>
+                  <div><input type="checkbox" id="cpp-1" name="competencies-1" value="cpp"><label for="cpp-1">C++</label></div>
+                  <div><input type="checkbox" id="c-1" name="competencies-1" value="c"><label for="c-1">C</label></div>
+                  <div><input type="checkbox" id="springboot-1" name="competencies-1" value="springboot"><label for="springboot-1">Spring Boot</label></div>
+                  <div><input type="checkbox" id="dotnet-1" name="competencies-1" value="dotnet"><label for="dotnet-1">.NET Framework</label></div>
+                  <div><input type="checkbox" id="react-1" name="competencies-1" value="react"><label for="react-1">React</label></div>
+                  <div><input type="checkbox" id="javascript-1" name="competencies-1" value="javascript"><label for="javascript-1">JavaScript</label></div>
+                  <div><input type="checkbox" id="html-1" name="competencies-1" value="html"><label for="html-1">HTML</label></div>
+                  <div><input type="checkbox" id="css-1" name="competencies-1" value="css"><label for="css-1">CSS</label></div>
+                  <div><input type="checkbox" id="tailwindcss-1" name="competencies-1" value="tailwindcss"><label for="tailwindcss-1">Tailwind CSS</label></div>
+                  <div><input type="checkbox" id="mongodb-1" name="competencies-1" value="mongodb"><label for="mongodb-1">MongoDB</label></div>
+                  <div><input type="checkbox" id="postgresql-1" name="competencies-1" value="postgresql"><label for="postgresql-1">PostgreSQL</label></div>
+                  <div><input type="checkbox" id="sql-1" name="competencies-1" value="sql"><label for="sql-1">SQL</label></div>
+                  <div><input type="checkbox" id="git-1" name="competencies-1" value="git"><label for="git-1">Git</label></div>
+                  <div><input type="checkbox" id="docker-1" name="competencies-1" value="docker"><label for="docker-1">Docker</label></div>
+                  <div><input type="checkbox" id="postman-1" name="competencies-1" value="postman"><label for="postman-1">Postman</label></div>
+                  <div><input type="checkbox" id="wireshark-1" name="competencies-1" value="wireshark"><label for="wireshark-1">Wireshark</label></div>
+                  <div><input type="checkbox" id="javafx-1" name="competencies-1" value="javafx"><label for="javafx-1">JavaFX</label></div>
+                  <div><input type="checkbox" id="winforms-1" name="competencies-1" value="winforms"><label for="winforms-1">WinForms</label></div>
+                </div>
+              </label>
+            </div>
+            <div class="project-entry" id="project-entry-2" style="display: none;">
+              <h4>Project 2</h4>
+              <button type="button" class="remove-project-btn" data-project-num="2" aria-label="Remove Project 2">&times; Remove</button>
+              <label>
+                Project Image URL:
+                <input type="url" class="project-image-url" placeholder="https://example.com/image.jpg">
+              </label>
+              <label>
+                Project Title:
+                <input type="text" class="project-title">
+              </label>
+              <label>
+                Project Description:
+                <textarea class="project-description"></textarea>
+              </label>
+              <label>
+                Competencies:
+                <div class="competencies-checkbox-group">
+                  <div><input type="checkbox" id="java-2" name="competencies-2" value="java"><label for="java-2">Java</label></div>
+                  <div><input type="checkbox" id="csharp-2" name="competencies-2" value="csharp"><label for="csharp-2">C#</label></div>
+                  <div><input type="checkbox" id="cpp-2" name="competencies-2" value="cpp"><label for="cpp-2">C++</label></div>
+                  <div><input type="checkbox" id="c-2" name="competencies-2" value="c"><label for="c-2">C</label></div>
+                  <div><input type="checkbox" id="springboot-2" name="competencies-2" value="springboot"><label for="springboot-2">Spring Boot</label></div>
+                  <div><input type="checkbox" id="dotnet-2" name="competencies-2" value="dotnet"><label for="dotnet-2">.NET Framework</label></div>
+                  <div><input type="checkbox" id="react-2" name="competencies-2" value="react"><label for="react-2">React</label></div>
+                  <div><input type="checkbox" id="javascript-2" name="competencies-2" value="javascript"><label for="javascript-2">JavaScript</label></div>
+                  <div><input type="checkbox" id="html-2" name="competencies-2" value="html"><label for="html-2">HTML</label></div>
+                  <div><input type="checkbox" id="css-2" name="competencies-2" value="css"><label for="css-2">CSS</label></div>
+                  <div><input type="checkbox" id="tailwindcss-2" name="competencies-2" value="tailwindcss"><label for="tailwindcss-2">Tailwind CSS</label></div>
+                  <div><input type="checkbox" id="mongodb-2" name="competencies-2" value="mongodb"><label for="mongodb-2">MongoDB</label></div>
+                  <div><input type="checkbox" id="postgresql-2" name="competencies-2" value="postgresql"><label for="postgresql-2">PostgreSQL</label></div>
+                  <div><input type="checkbox" id="sql-2" name="competencies-2" value="sql"><label for="sql-2">SQL</label></div>
+                  <div><input type="checkbox" id="git-2" name="competencies-2" value="git"><label for="git-2">Git</label></div>
+                  <div><input type="checkbox" id="docker-2" name="competencies-2" value="docker"><label for="docker-2">Docker</label></div>
+                  <div><input type="checkbox" id="postman-2" name="competencies-2" value="postman"><label for="postman-2">Postman</label></div>
+                  <div><input type="checkbox" id="wireshark-2" name="competencies-2" value="wireshark"><label for="wireshark-2">Wireshark</label></div>
+                  <div><input type="checkbox" id="javafx-2" name="competencies-2" value="javafx"><label for="javafx-2">JavaFX</label></div>
+                  <div><input type="checkbox" id="winforms-2" name="competencies-2" value="winforms"><label for="winforms-2">WinForms</label></div>
+                </div>
+              </label>
+            </div>
+            <div class="project-entry" id="project-entry-3" style="display: none;">
+              <h4>Project 3</h4>
+              <button type="button" class="remove-project-btn" data-project-num="3" aria-label="Remove Project 3">&times; Remove</button>
+              <label>
+                Project Image URL:
+                <input type="url" class="project-image-url" placeholder="https://example.com/image.jpg">
+              </label>
+              <label>
+                Project Title:
+                <input type="text" class="project-title">
+              </label>
+              <label>
+                Project Description:
+                <textarea class="project-description"></textarea>
+              </label>
+              <label>
+                Competencies:
+                <div class="competencies-checkbox-group">
+                  <div><input type="checkbox" id="java-3" name="competencies-3" value="java"><label for="java-3">Java</label></div>
+                  <div><input type="checkbox" id="csharp-3" name="competencies-3" value="csharp"><label for="csharp-3">C#</label></div>
+                  <div><input type="checkbox" id="cpp-3" name="competencies-3" value="cpp"><label for="cpp-3">C++</label></div>
+                  <div><input type="checkbox" id="c-3" name="competencies-3" value="c"><label for="c-3">C</label></div>
+                  <div><input type="checkbox" id="springboot-3" name="competencies-3" value="springboot"><label for="springboot-3">Spring Boot</label></div>
+                  <div><input type="checkbox" id="dotnet-3" name="competencies-3" value="dotnet"><label for="dotnet-3">.NET Framework</label></div>
+                  <div><input type="checkbox" id="react-3" name="competencies-3" value="react"><label for="react-3">React</label></div>
+                  <div><input type="checkbox" id="javascript-3" name="competencies-3" value="javascript"><label for="javascript-3">JavaScript</label></div>
+                  <div><input type="checkbox" id="html-3" name="competencies-3" value="html"><label for="html-3">HTML</label></div>
+                  <div><input type="checkbox" id="css-3" name="competencies-3" value="css"><label for="css-3">CSS</label></div>
+                  <div><input type="checkbox" id="tailwindcss-3" name="competencies-3" value="tailwindcss"><label for="tailwindcss-3">Tailwind CSS</label></div>
+                  <div><input type="checkbox" id="mongodb-3" name="competencies-3" value="mongodb"><label for="mongodb-3">MongoDB</label></div>
+                  <div><input type="checkbox" id="postgresql-3" name="competencies-3" value="postgresql"><label for="postgresql-3">PostgreSQL</label></div>
+                  <div><input type="checkbox" id="sql-3" name="competencies-3" value="sql"><label for="sql-3">SQL</label></div>
+                  <div><input type="checkbox" id="git-3" name="competencies-3" value="git"><label for="git-3">Git</label></div>
+                  <div><input type="checkbox" id="docker-3" name="competencies-3" value="docker"><label for="docker-3">Docker</label></div>
+                  <div><input type="checkbox" id="postman-3" name="competencies-3" value="postman"><label for="postman-3">Postman</label></div>
+                  <div><input type="checkbox" id="wireshark-3" name="competencies-3" value="wireshark"><label for="wireshark-3">Wireshark</label></div>
+                  <div><input type="checkbox" id="javafx-3" name="competencies-3" value="javafx"><label for="javafx-3">JavaFX</label></div>
+                  <div><input type="checkbox" id="winforms-3" name="competencies-3" value="winforms"><label for="winforms-3">WinForms</label></div>
+                </div>
+              </label>
+            </div>
+          </div>
+          <button type="button" id="add-project-btn" class="add-project-button"><i class="fas fa-plus"></i> Add Project</button>
+        </div>
+        <button type="submit" id="save-profile-btn" class="save-profile-button">Save All Profile Data</button>
       </form>
     </div>
   </div>

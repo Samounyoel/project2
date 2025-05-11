@@ -4,11 +4,19 @@
 }
 
 :root {
-  --primary-color: #007AFF;
-  --background-color: #F2F2F7;
-  --text-color: #1C1C1E;
-  --secondary-text: #8E8E93;
-  --card-background: #FFFFFF;
+  --primary-color: #6C91C2; /* Soft Blue */
+  --background-color: #FDFDFF; /* Off-White/Very Light Blueish Gray */
+  --text-color: #333333; /* Dark Gray */
+  --secondary-text: #555555; /* Medium Gray */
+  --card-background: #FFFFFF; /* White */
+  --accent-hover: #5A7FAB; /* Darker Soft Blue for hover */
+  --border-color: #E0E0E0; /* Light Gray for borders */
+  --hero-background: #E9F1F7; /* Light blue for hero */
+  --skill-tag-bg: #6C91C2; /* Primary color for skill tags */
+  --skill-tag-text: #FFFFFF; /* White text for skill tags */
+  --project-card-bg: #FFFFFF; /* White for project cards */
+  --project-competency-bg: #F0F0F0; /* Light gray for project competencies */
+  --project-competency-text: #444444; /* Darker gray for competency text */
 }
 
 * {
@@ -589,3 +597,340 @@ body {
   }
 }
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* NEW STYLES FOR PORTFOLIO SECTIONS */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* General Section Styling */
+.section-padding {
+  padding: 20px 20px 40px 20px; /* top/bottom L/R / bottom / L/R */
+  margin: 0 auto; /* Center sections */
+  max-width: 1000px; /* Max width for content area */
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--primary-color);
+  text-align: center;
+}
+
+.profile-section { /* This is our Hero Section now */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh; /* Takes up most of the viewport height */
+  padding: 20px; /* Some padding for content */
+  background-color: var(--hero-background); /* Use the new hero background color */
+  text-align: center;
+  /* Optional: remove if a full-width bg section is desired, but the card inside provides contrast */
+  /* box-shadow: none; */ 
+  /* border-radius: 0; */
+}
+
+.profile-section .profile-card {
+  background-color: var(--card-background);
+  padding: 30px 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 90%;
+}
+
+.profile-section .profile-card .profile-info h2 {
+  font-size: 2.2rem; /* Larger name */
+  color: var(--text-color);
+  margin-bottom: 5px;
+}
+
+.profile-section .profile-card .profile-info p {
+  font-size: 1rem;
+  color: var(--secondary-text);
+  margin-bottom: 15px;
+}
+
+.profile-section .profile-card .profile-stats {
+  margin-bottom: 15px; /* Space before about section */
+}
+
+.profile-section .profile-card #aboutProfile span {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px; /* Spacing between skill tags */
+  list-style: none;
+  padding: 0;
+}
+
+.skill-tag {
+  background-color: var(--skill-tag-bg);
+  color: var(--skill-tag-text);
+  padding: 10px 18px; /* Slightly more padding */
+  border-radius: 25px; /* More rounded */
+  font-size: 0.9rem; 
+  font-weight: 500;
+  border: 1px solid transparent; /* For potential hover effect */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.skill-tag:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--accent-hover); /* Use accent hover color */
+  border-color: var(--accent-hover);
+}
+
+.skills-list .empty-message {
+  color: var(--secondary-text);
+  font-style: italic;
+}
+
+/* Projects Section */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 25px;
+}
+
+.portfolio-project-card {
+  background-color: var(--project-card-bg);
+  border-radius: 12px; /* Slightly less rounded for a sleeker look */
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06); /* Softer shadow */
+  border: 1px solid var(--border-color); /* Subtle border */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column; /* Ensure content stacks vertically */
+}
+
+.portfolio-project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Enhanced hover shadow */
+  border-color: var(--primary-color); /* Accent border on hover */
+}
+
+.portfolio-project-card h3 {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.portfolio-project-card p {
+  font-size: 0.95rem;
+  color: var(--secondary-text);
+  line-height: 1.6;
+  flex-grow: 1; /* Allow description to take available space */
+  margin-bottom: 15px;
+}
+
+.portfolio-project-card .project-competencies {
+  margin-top: auto; /* Push competencies to the bottom of the card */
+}
+
+.portfolio-project-card .project-competencies h4 {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 8px;
+  margin-top: 10px;
+}
+
+.portfolio-project-card .project-competencies ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.portfolio-project-card .project-competencies li {
+  background-color: var(--project-competency-bg);
+  color: var(--project-competency-text);
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500; /* Slightly bolder competency tags */
+}
+
+.portfolio-projects-section .empty-message {
+  color: var(--secondary-text);
+  font-style: italic;
+  text-align: center;
+  grid-column: 1 / -1; /* Span across all grid columns if empty */
+}
+
+
+/* Hero Section Specific Styles */
+.hero-card {
+  /* Inherits .profile-card styles, but we can override or add specifics */
+  max-width: 900px; /* Wider card for hero content */
+  display: flex; /* To center .hero-content-wrapper if it's not full width */
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between image and text columns */
+  width: 100%;
+  gap: 40px; /* Space between columns */
+}
+
+.hero-image-column {
+  flex-basis: 35%; /* Image takes about 1/3rd */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-pic-hero { /* Renamed from #profile-pic for hero */
+  width: 200px; /* Larger hero image */
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 6px solid var(--primary-color); /* Prominent border */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.hero-text-column {
+  flex-basis: 60%; /* Text takes about 2/3rd */
+  text-align: left; /* Align text to the left in its column */
+}
+
+#profile-name-hero { /* Was #profile-name */
+  font-size: 3.5rem; /* Large, impactful name */
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+#profile-tagline-hero { /* Content from #profile-about */
+  font-size: 1.2rem;
+  color: var(--secondary-text);
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.hero-links {
+  display: flex;
+  gap: 15px; /* Space between buttons if there are multiple */
+}
+
+.hero-btn {
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-flex; /* Align icon and text */
+  align-items: center;
+  gap: 8px; /* Space between icon and text in button */
+}
+
+.hero-btn.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: 1px solid var(--primary-color);
+}
+
+.hero-btn.btn-primary:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments for Hero */
+@media (max-width: 768px) {
+  .hero-content-wrapper {
+    flex-direction: column; /* Stack image and text */
+    text-align: center; /* Center text when stacked */
+    gap: 30px;
+  }
+
+  .hero-image-column,
+  .hero-text-column {
+    flex-basis: auto; /* Reset flex-basis */
+    width: 100%; /* Take full width when stacked */
+    align-items: center; /* Center content in text column */
+  }
+   .hero-text-column {
+    text-align: center; 
+  }
+
+  #profile-name-hero {
+    font-size: 2.8rem;
+  }
+
+  #profile-tagline-hero {
+    font-size: 1.1rem;
+  }
+  .hero-links {
+    justify-content: center; /* Center buttons */
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-pic-hero {
+    width: 150px;
+    height: 150px;
+  }
+  #profile-name-hero {
+    font-size: 2.2rem;
+  }
+  #profile-tagline-hero {
+    font-size: 1rem;
+  }
+  .hero-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* .profile-section .profile-card {
+  max-width: 600px; 
+  margin: 0 auto;
+} */
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr; /* Stack project cards on smaller screens */
+  }
+
+  .skill-tag {
+    font-size: 0.85rem;
+    padding: 7px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-padding {
+    padding: 15px 15px 30px 15px;
+  }
+  .section-title {
+    font-size: 1.6rem;
+  }
+   .portfolio-project-card h3 {
+    font-size: 1.3rem;
+  }
+  .portfolio-project-card p {
+    font-size: 0.9rem;
+  }
+}
