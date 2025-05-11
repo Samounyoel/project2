@@ -1,11 +1,12 @@
 class USER {
-  constructor(firstName, lastName, email, password, userId, profilePicture, about) {
+  constructor(firstName, lastName, email, password, userId, profilePicture, linkedinLink, about) {
     this.firstName = firstName;
     this.lastName = lastName
     this.email = email;
     this.password = password;
     this.userId = userId;
     this.profilePicture = profilePicture;
+    this.linkedinLink = linkedinLink;
     this.about = about;
   }
 }

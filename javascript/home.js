@@ -1,3 +1,19 @@
+
+AOS.init();
+$(window).on('scroll', function() {
+  const scrollTop = $(window).scrollTop();
+  const windowHeight = $(window).height();
+  const documentHeight = $(document).height();
+
+  if (scrollTop + windowHeight >= documentHeight - 10) {
+    $('.footer').removeClass('hidden').addClass('visible');
+  } else {
+    $('.footer').removeClass('visible').addClass('hidden');
+  }
+});
+
+
+
 $(document).ready(function() {
   // Check if user is logged in
   const user = JSON.parse(localStorage.getItem('user'));
@@ -5,6 +21,16 @@ $(document).ready(function() {
     window.location.href = 'login.html';
     return;
   }
+
+  const elements = document.querySelectorAll('.scroll-reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  });
+  elements.forEach(el => observer.observe(el));
 
   // Update navbar with user info
   $('#nav-profile-img').attr('src', user.profilePicture || '../pics/defaultPic.png');
@@ -15,6 +41,7 @@ $(document).ready(function() {
   $('#profile-name').text(`${user.firstName || ''} ${user.lastName || ''}`);
   $('#profile-email').text(user.email || '');
   $("#profile-about").text(user.about || '');
+  $("#profile-linkedinLink").text(user.linkedinLink || 'Linkedin');
   // Get user profile data
   const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
   const apis = JSON.parse(localStorage.getItem('selectedAPIs') || '[]');
@@ -23,7 +50,7 @@ $(document).ready(function() {
   function renderProfileInfo() {
     try {
       const profileInfoHtml = `
-        <div class="profile-image-section">
+        <div class="profile-image-section fade-in">
           <img src="${user.profilePicture || '../pics/defaultPic.png'}" alt="Profile Image" width="100">
         </div>
         <div class="profile-details">
@@ -39,7 +66,7 @@ $(document).ready(function() {
           </div>
         </div>
       `;
-
+      animateProfileSection();
       // Use jQuery to set HTML safely
       $('#profile-info').html(profileInfoHtml);
     } catch (error) {
@@ -90,7 +117,6 @@ $(document).ready(function() {
         console.log('Weather data received:', data);
         if (data && data.current_weather) {
           const weather = data.current_weather;
-          $('.location-name').text('Ashdod');
           $('.current-time').text(new Date().toLocaleTimeString());
           $('.temp-value').text(Math.round(weather.temperature));
           $('.weather-description').text(getWeatherDescription(weather.weathercode));
@@ -111,13 +137,14 @@ $(document).ready(function() {
           
           // Update 5-day forecast
           if (data.daily && data.daily.time) {
-            $('.forecast-container').empty(); // Clear previous forecast
-            data.daily.time.slice(1, 6).forEach((date, index) => {
+            $('.forecast-items').empty(); // Clear previous forecast
+            data.daily.time.slice(1, 5).forEach((date, index) => {
               const formattedDate = new Date(date).toLocaleDateString('en-US', { weekday: 'short' });
               const maxTemp = Math.round(data.daily.temperature_2m_max[index]);
               const minTemp = Math.round(data.daily.temperature_2m_min[index]);
               const weatherCode = data.daily.weathercode[index];
               const forecastIconClass = getWeatherIconFromCode(weatherCode);
+
               
               const forecastHtml = `
                 <div class="forecast-day">
@@ -129,7 +156,7 @@ $(document).ready(function() {
                   </div>
                 </div>
               `;
-              $('.forecast-container').append(forecastHtml);
+              $('.forecast-items').append(forecastHtml);
             });
           }
         }
@@ -280,7 +307,7 @@ $(document).ready(function() {
       console.warn(`No stock card found for symbol: ${symbol}`);
       // Dynamically create stock card if not exists
       const newStockCard = `
-        <div class="stock-card" id="stock-${symbol.toLowerCase().replace(/[^a-z]/g, '')}">
+        <div class="stock-card" data-aos="fade-up" data-aos-delay="1000" data-aos-easing="ease-in-out" id="stock-${symbol.toLowerCase().replace(/[^a-z]/g, '')}">
           <div class="stock-info">
             <div class="stock-name">${symbol}</div>
             <div class="stock-symbol">${symbol}</div>
@@ -383,7 +410,7 @@ $(document).ready(function() {
 });
 
 function getWeatherIcon(code) {
-  if (code === 0) return "☀️";
+  if (code === 0) return '<span style="color: gold;">☀️</span>';
   if (code === 1 || code === 2) return "🌤️";
   if (code === 3) return "☁️";
   if (code === 45 || code === 48) return "🌫️";
@@ -396,13 +423,14 @@ function getWeatherIcon(code) {
 }
 
 function loadNavbar() {
-  const user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  console.log(user)
   document.getElementById('nav-user-name').textContent = (user.firstName || '') + ' ' + (user.lastName || '');
-  document.getElementById('nav-profile-img').src = user.profilePicture || '../pics/defaultPic.jpeg';
+  document.getElementById('nav-profile-img').src = user.profilePicture || '../pics/defaultPic.png';
 }
 
 function loadProfileInfo() {
-  const user = JSON.parse(localStorage.getItem('currentUSER') || '{}');
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
   const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
   const apis = [];
   if (profile.weatherApi) apis.push('Weather (Open-Meteo)');
@@ -420,7 +448,7 @@ function loadProfileInfo() {
 
   document.getElementById('profile-info').innerHTML =
     '<div class="profile-image-section">' +
-      '<img src="' + (user.profilePicture || '../pics/defaultPic.jpeg') + '" alt="Profile Image" width="100">' +
+      '<img src="' + (user.profilePicture || '../pics/defaultPic.png') + '" alt="Profile Image" width="100">' +
     '</div>' +
     '<div class="profile-details">' +
       '<p><strong>First Name:</strong> ' + (user.firstName || '') + '</p>' +
@@ -442,8 +470,10 @@ function loadProfileInfo() {
         const weather = data.current_weather;
         if (weather) {
           const icon = getWeatherIcon(weather.weathercode);
-          document.getElementById('weather-info').innerHTML =
-            icon + ' ' + weather.temperature + '°C';
+          
+            document.getElementById('weather-info').innerHTML =
+              icon + ' ' + weather.temperature + '°C';
+
         } else {
           document.getElementById('weather-info').textContent = 'Unavailable';
         }

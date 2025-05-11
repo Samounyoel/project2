@@ -15,17 +15,16 @@ function loadProfile() {
   {
     document.getElementById('profile-img').src = user.profilePicture;
   }
-  if (user.about)
-  {
-    document.getElementById('about').value = user.about;
-  }
+    document.getElementById('about').value = "";
+
+
   
   // Age and API preferences (if previously set)
   const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-  if (profile.age)
-  {
-    document.getElementById('age').value = profile.age;
-  }  
+
+    document.getElementById('age').value = "";
+    document.getElementById('linkedinLink').value = "";
+
   document.getElementById('weather-api').checked = !!profile.weatherApi;
   document.getElementById('stock-api').checked = !!profile.stockApi;
 }
@@ -57,6 +56,7 @@ imgInput.onchange = function() {
 document.getElementById('profile-form').onsubmit = function(e) {
   e.preventDefault();
   const age = document.getElementById('age').value;
+  const linkedinLink = document.getElementById('linkedinLink').value;
   const weatherApi = document.getElementById('weather-api').checked;
   const stockApi = document.getElementById('stock-api').checked;
   // Save to userProfile in localStorage
@@ -64,12 +64,14 @@ document.getElementById('profile-form').onsubmit = function(e) {
   user.firstName = document.getElementById('first-name').value;
   user.lastName = document.getElementById('last-name').value;
   user.about = document.getElementById('about').value;
+  user.linkedinLink = document.getElementById('linkedinLink').value;
   localStorage.setItem('user', JSON.stringify(user));
   const profile = {
     age: age,
     weatherApi: weatherApi,
     stockApi: stockApi,
     email: user.email,
+    linkedinLink : linkedinLink,
     about: user.about
   };
   localStorage.setItem('userProfile', JSON.stringify(profile));
@@ -86,6 +88,8 @@ document.getElementById('profile-form').onsubmit = function(e) {
     users[userIndex].lastName = user.lastName;
     users[userIndex].profilePicture = user.profilePicture;
     users[userIndex].about = user.about;
+    users[userIndex].linkedinLink = user.linkedinLink;
+
     localStorage.setItem('USERS', JSON.stringify(users));
   } else {
     // This case should ideally not happen if user was registered properly
@@ -97,6 +101,9 @@ document.getElementById('profile-form').onsubmit = function(e) {
 
   if (localStorage.getItem('isNewUser') === 'true') {
     localStorage.removeItem('isNewUser');
+    document.getElementById('age').value = '';
+    document.getElementById('about').value = '';
+    document.getElementById('linkedinLink').value = '';
   }
 
   alert('Profile saved!');
@@ -111,6 +118,8 @@ if (existingProfile) {
   document.getElementById('age').value = existingProfile.age || '';
   document.getElementById('email').value = existingProfile.email || '';
   document.getElementById('about').value = existingProfile.about || '';
+  document.getElementById('linkedinLink').value = existingProfile.linkedinLink || '';
+
 }
 
 // Load existing API selections

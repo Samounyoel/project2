@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
   <title>Weather App</title>
   <link rel="stylesheet" href="../css/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -38,8 +40,8 @@
             <span id="profile-age"></span>
           </div>
           <div class="stat-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Ashdod, Israel</span>
+            <i class="fa-brands fa-linkedin"></i>
+            <span id="profile-linkedinLink">Linkedin</span>
           </div>
         </div>
         <div class="stat-item" id="aboutProfile">
@@ -52,10 +54,8 @@
     <!-- Weather Section -->
     <div class="weather-container">
       <div class="location-container">
-        <h1 class="location-name">Loading...</h1>
         <p class="current-time">Loading...</p>
       </div>
-
       <div class="current-weather">
         <div class="weather-icon">
           <i class="fas fa-sun"></i>
@@ -69,11 +69,12 @@
 
       <div class="weather-details">
         <div class="detail-item">
-          <i class="fas fa-wind"></i>
+          <i class="fas fa-wind" id="wind"></i>
           <span class="wind-speed">-- km/h</span>
         </div>
         <div class="detail-item">
-          <i class="fas fa-tint"></i>
+          <i class="fas fa-tint drip"></i>
+          
           <span class="humidity">--%</span>
         </div>
         <div class="detail-item">
@@ -82,8 +83,8 @@
         </div>
       </div>
 
-      <div class="forecast-container">
-        <div class="forecast-title">5-Day Forecast</div>
+      <div class="forecast-container" data-aos="fade-up" data-aos-delay="300" data-aos-easing="ease-in-out" id="forecast-4days">
+        <div class="forecast-title">4-Day Forecast</div>
         <div class="forecast-items">
           <!-- Forecast items will be added dynamically -->
         </div>
@@ -100,7 +101,7 @@
         </div>
       </div>
       <div class="stock-cards">
-        <div class="stock-card" id="stock-meta">
+        <div class="stock-card" id="stock-meta" data-aos="fade-up" data-aos-delay="0" data-aos-easing="ease-in-out">
           <div class="stock-info">
             <div class="stock-name">Meta</div>
             <div class="stock-symbol">META</div>
@@ -110,7 +111,7 @@
             <span class="price-change">--</span>
           </div>
         </div>
-        <div class="stock-card" id="stock-apple">
+        <div class="stock-card" id="stock-apple" data-aos="fade-up" data-aos-delay="300" data-aos-easing="ease-in-out">
           <div class="stock-info">
             <div class="stock-name">Apple</div>
             <div class="stock-symbol">AAPL</div>
@@ -120,7 +121,7 @@
             <span class="price-change">--</span>
           </div>
         </div>
-        <div class="stock-card" id="stock-microsoft">
+        <div class="stock-card" id="stock-microsoft" data-aos="fade-up" data-aos-delay="600" data-aos-easing="ease-in-out">
           <div class="stock-info">
             <div class="stock-name">Microsoft</div>
             <div class="stock-symbol">MSFT</div>
@@ -130,7 +131,7 @@
             <span class="price-change">--</span>
           </div>
         </div>
-        <div class="stock-card" id="stock-amazon">
+        <div class="stock-card" id="stock-amazon" data-aos="fade-up" data-aos-delay="900" data-aos-easing="ease-in-out">
           <div class="stock-info">
             <div class="stock-name">Amazon</div>
             <div class="stock-symbol">AMZN</div>
@@ -149,10 +150,11 @@
     </div>
   </div>
 
-  <footer class="footer">
+  <footer class="footer hidden">
     <p><strong> Ⓒ Created by : Tevel Halilit Dabush & Yoel Samoun Ⓒ</strong></p>
   </footer>
 
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script src="../javascript/home.js"></script>
 </body>
 </html>
