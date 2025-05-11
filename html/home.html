@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
   <div class="app-container">
     <!-- Navigation Bar -->
@@ -26,28 +27,31 @@
 
     <!-- Profile Section -->
     <div class="profile-section">
-  <div class="profile-card hero-card">
-    <div class="hero-content-wrapper">
-      <div class="hero-image-column">
-        <img id="profile-pic-hero" src="../pics/defaultPic.png" alt="Profile Picture" class="profile-pic-hero">
-      </div>
-      <div class="hero-text-column">
-        <h1 id="profile-name-hero"></h1> <!-- Name will be populated here -->
-        <p id="profile-tagline-hero"></p> <!-- "About Me" will be populated here as a tagline -->
-        <div class="hero-links">
-            <a id="profile-linkedin-hero" href="#" class="btn btn-primary hero-btn" target="_blank" rel="noopener noreferrer">
-                <i class="fa-brands fa-linkedin"></i> LinkedIn
-            </a>
-            <!-- Optional: A second button, e.g., to scroll to projects -->
-            <!-- <a href="#portfolio-projects-section" class="btn btn-secondary hero-btn">View Projects</a> -->
+      <div id="headerProfile">
+        <div class="profile-card hero-card">
+          <div class="hero-content-wrapper">
+            <div class="hero-image-column">
+              <img id="profile-pic-hero" src="../pics/defaultPic.png" alt="Profile Picture" class="profile-pic-hero">
+            </div>
+            <div class="hero-text-column">
+              <h1 id="profile-name-hero"></h1> <!-- Name will be populated here -->
+              <p id="profile-tagline-hero"></p> <!-- "About Me" will be populated here as a tagline -->
+              <div class="hero-links">
+                <a id="profile-linkedin-hero" href="#" class="btn btn-primary hero-btn" target="_blank"
+                  rel="noopener noreferrer">
+                  <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+                <!-- Optional: A second button, e.g., to scroll to projects -->
+                <!-- <a href="#portfolio-projects-section" class="btn btn-secondary hero-btn">View Projects</a> -->
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
     </div> <!-- End of profile-section -->
 
     <!-- My Skills Section -->
-    <div class="skills-section section-padding"> 
+    <div class="skills-section section-padding">
       <h2 class="section-title">My Skills</h2>
       <div id="global-skills-list" class="skills-list">
         <!-- Skills will be populated by home.js -->
@@ -55,7 +59,7 @@
     </div>
 
     <!-- My Projects Section -->
-    <div class="portfolio-projects-section section-padding"> 
+    <div class="portfolio-projects-section section-padding">
       <h2 class="section-title">My Projects</h2>
       <div id="portfolio-projects-container" class="projects-grid">
         <!-- Projects will be populated by home.js -->
@@ -85,7 +89,7 @@
         </div>
         <div class="detail-item">
           <i class="fas fa-tint drip"></i>
-          
+
           <span class="humidity">--%</span>
         </div>
         <div class="detail-item">
@@ -94,7 +98,8 @@
         </div>
       </div>
 
-      <div class="forecast-container" id="forecast-4days" data-aos="fade-up" data-aos-delay="300" data-aos-easing="ease-in-out" >
+      <div class="forecast-container" id="forecast-4days" data-aos="fade-up" data-aos-delay="300"
+        data-aos-easing="ease-in-out">
         <div class="forecast-title">4-Day Forecast</div>
         <div class="forecast-items">
           <!-- Forecast items will be added dynamically -->
@@ -132,7 +137,8 @@
             <span class="price-change">--</span>
           </div>
         </div>
-        <div class="stock-card" id="stock-microsoft" data-aos="fade-up" data-aos-delay="600" data-aos-easing="ease-in-out">
+        <div class="stock-card" id="stock-microsoft" data-aos="fade-up" data-aos-delay="600"
+          data-aos-easing="ease-in-out">
           <div class="stock-info">
             <div class="stock-name">Microsoft</div>
             <div class="stock-symbol">MSFT</div>
@@ -168,4 +174,5 @@
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script src="../javascript/home.js"></script>
 </body>
+
 </html>
