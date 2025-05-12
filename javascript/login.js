@@ -11,11 +11,13 @@ $("#logInBtn").click(function() {
     const user = users[i];
     if (user.email == email && user.password == password) {
       localStorage.setItem("user", JSON.stringify(user));
-      const profile = JSON.parse(localStorage.getItem("userProfile") || "{}");
-      if (!profile.email || profile.email !== user.email) {
-        window.location.href = "profile.html";
+      const allUserProfiles = JSON.parse(localStorage.getItem("ALL_USER_PROFILES") || "{}");
+      
+      // Check if the current user has an entry in ALL_USER_PROFILES
+      if (user && user.userId && allUserProfiles[user.userId]) {
+        window.location.href = "home.html"; // User has a detailed profile, go to home
       } else {
-        window.location.href = "home.html";
+        window.location.href = "profile.html"; // No detailed profile found, go to profile page
       }
       found = true;
       break;

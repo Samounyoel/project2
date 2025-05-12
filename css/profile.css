@@ -91,13 +91,44 @@ body {
 }
 
 .profile-form-container {
-  max-width: 500px; /* Kept max-width */
-  background-color: #FFFFFF; /* Applied from home.css card style */
-  padding: 30px; /* Applied from home.css card style */
-  border-radius: 20px; /* Applied from home.css card style */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Applied from home.css card style */
-  margin: 20px auto; /* Centering and margin */
-  animation: slideUp 0.8s ease-out; /* Added animation from home.css */
+  max-width: 800px; /* Allow wider container for cards */
+  margin: 20px auto;
+  padding: 0; /* Remove padding if cards have their own */
+  background-color: transparent; /* Remove background if cards have their own */
+  box-shadow: none; /* Remove shadow if cards have their own */
+  /* animation: slideUp 0.8s ease-out; */ /* Animation might be better on individual cards */
+}
+
+.profile-card {
+  background-color: var(--card-background, #FFFFFF);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 25px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.profile-card h3 {
+  font-size: 1.5rem; /* Consistent heading size for cards */
+  color: var(--primary-color, #007AFF);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color, #E0E0E0);
+  text-align: left; /* Ensure titles are left-aligned */
+}
+
+/* Adjustments for existing sections if they are now inside cards */
+.profile-card .profile-image-section {
+  margin-bottom: 20px; /* Adjust spacing */
+}
+
+.profile-card .global-competencies-section h3,
+.profile-card .projects-section h3 {
+  font-size: 1.2rem; /* Slightly smaller for sub-sections if needed */
+  color: var(--text-color, #333);
+  margin-bottom: 15px;
+  border-bottom: none; /* Remove double border if card has one */
+  padding-bottom: 0;
 }
 
 .profile-form-container h2 {
@@ -133,11 +164,14 @@ body {
   font-size: 14px;
   color: #555; /* Original label color */
   margin-bottom: 6px; /* Original margin */
+  text-align: left;
 }
 
 #profile-form input[type="text"],
 #profile-form input[type="number"],
-#profile-form input[type="email"] {
+#profile-form input[type="email"],
+#profile-form input[type="url"],
+#profile-form textarea {
   width: 100%;
   padding: 10px;
   font-size: 16px;
@@ -151,7 +185,9 @@ body {
 
 #profile-form input[type="text"]:focus,
 #profile-form input[type="number"]:focus,
-#profile-form input[type="email"]:focus {
+#profile-form input[type="email"]:focus,
+#profile-form input[type="url"]:focus,
+#profile-form textarea:focus {
   border-color: #4070f4;
 }
 
@@ -195,6 +231,26 @@ body {
   margin-top: 5px;
 }
 
+#save-profile-btn {
+  padding: 15px 20px; /* Larger padding */
+  font-size: 1.1rem; /* Slightly larger font */
+  background-color: #4070f4; /* Ensure blue background */
+  width: auto; /* Allow button to size with content + padding */
+  min-width: 200px; /* Set a minimum width */
+  display: flex; /* To center it if text-align: center is on parent */
+  color : white;
+  align-self: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  
+}
+
+/* If you want to center the save button within its container */
+.profile-form-container form {
+  text-align: left; /* This will center inline-block elements like the button */
+}
+
 .profile-details {
   margin-top: 16px;
 }
@@ -233,7 +289,7 @@ body {
 .projects-section h3 {
   margin-bottom: 20px;
   color: #333;
-  text-align: center;
+  text-align: left;
 }
 
 .project-entry {

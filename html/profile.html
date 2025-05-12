@@ -25,7 +25,9 @@
     <div class="main-content">
     <div class="profile-form-container">
       <h2>User Profile</h2>
-      <div class="profile-image-section">
+      <div class="profile-card profile-card-basic-info">
+        <h3>Personal Details</h3>
+        <div class="profile-image-section">
         <img id="profile-img" src="../pics/defaultPic.jpeg" alt="Profile Image" width="100">
         <input type="file" id="img-upload" accept="image/*" style="display:none;"><br>
         <button type="button" id="update-img-btn">Update Image</button>
@@ -52,9 +54,16 @@
           <input type="text" id="linkedinLink">
         </label>
         <label>
-          About:
-          <input type="text" id="about" required>
+          GitHub:
+          <input type="url" id="githubLink" placeholder="https://github.com/username">
         </label>
+        <label>
+          About:
+          <textarea id="about" rows="5" required></textarea>
+        </label>
+      </div> <!-- End of profile-card-basic-info -->
+      <div class="profile-card profile-card-api-prefs">
+        <h3>API Preferences</h3>
         <div class="api-selection">
           <label>
             <input type="checkbox" id="weather-api">
@@ -65,6 +74,8 @@
             Stock Market (Alpha Vantage)
           </label>
         </div>
+      </div> <!-- End of profile-card-api-prefs -->
+      <div class="profile-card profile-card-global-skills">
         <div class="global-competencies-section">
           <h3>All my Competencies</h3>
           <div class="competencies-checkbox-group" id="global-competencies-checkbox-group">
@@ -90,6 +101,8 @@
             <div><input type="checkbox" id="global-winforms" name="global-competencies" value="winforms"><label for="global-winforms">WinForms</label></div>
           </div>
         </div>
+      </div> <!-- End of profile-card-global-skills -->
+      <div class="profile-card profile-card-projects">
         <div class="projects-section">
           <h3>My Projects</h3>
           <div id="project-entries">
@@ -218,6 +231,7 @@
           </div>
           <button type="button" id="add-project-btn" class="add-project-button"><i class="fas fa-plus"></i> Add Project</button>
         </div>
+      </div> <!-- End of profile-card-projects -->
         <button type="submit" id="save-profile-btn" class="save-profile-button">Save All Profile Data</button>
       </form>
     </div>

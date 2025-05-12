@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const ageEl = document.getElementById('age');
     const emailEl = document.getElementById('email');
     const linkedinLinkEl = document.getElementById('linkedinLink');
+    const githubLinkEl = document.getElementById('githubLink'); // Added GitHub
     const aboutEl = document.getElementById('about');
     const profileImgEl = document.getElementById('profile-img');
     const navProfileImgEl = document.getElementById('nav-profile-img');
@@ -77,6 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
         currentUser.firstName = firstNameEl.value.trim();
         currentUser.lastName = lastNameEl.value.trim();
         currentUser.about = aboutEl.value.trim();
+        currentUser.linkedinLink = linkedinLinkEl.value.trim(); // Ensure this is saved to currentUser
+        currentUser.githubLink = githubLinkEl.value.trim();   // Ensure this is saved to currentUser
         // currentUser.profilePicture is updated directly by imgUpload.onchange
 
         if (userIndex !== -1) {
@@ -84,11 +87,13 @@ document.addEventListener('DOMContentLoaded', function () {
             users[userIndex].lastName = currentUser.lastName;
             users[userIndex].about = currentUser.about;
             users[userIndex].profilePicture = currentUser.profilePicture;
-            users[userIndex].linkedinLink = linkedinLinkEl.value.trim(); 
+            users[userIndex].linkedinLink = linkedinLinkEl.value.trim();
+            users[userIndex].githubLink = githubLinkEl.value.trim(); // Added GitHub 
         } else {
             users.push({ 
                 ...currentUser, 
                 linkedinLink: linkedinLinkEl.value.trim(),
+                githubLink: githubLinkEl.value.trim(), // Added GitHub
                 firstName: currentUser.firstName,
                 lastName: currentUser.lastName,
                 about: currentUser.about,
@@ -98,61 +103,47 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('user', JSON.stringify(currentUser));
         localStorage.setItem('USERS', JSON.stringify(users));
 
-        const userProfileData = {
-            email: currentUser.email, 
-            age: ageEl.value.trim(),
-            linkedinLink: linkedinLinkEl.value.trim(),
-            weatherApi: weatherApiCheckbox.checked,
-            stockApi: stockApiCheckbox.checked,
-            projects: []
-        };
-
-        for (let i = 1; i <= MAX_PROJECTS; i++) { 
-            const projectEntry = document.getElementById(`project-entry-${i}`);
-            if (projectEntry && projectEntry.style.display !== 'none') {
-                const title = projectEntry.querySelector('.project-title').value.trim();
-                const description = projectEntry.querySelector('.project-description').value.trim();
-                const imageUrl = projectEntry.querySelector('.project-image-url').value.trim(); // Get image URL
-                const competencies = [];
-                projectEntry.querySelectorAll(`.competencies-checkbox-group input[name='competencies-${i}']:checked`).forEach(cb => {
-                    competencies.push(cb.value);
-                });
-
-                if (i <= visibleProjectCount) { // This condition might be redundant with the loop below, but ensures we only consider visible ones
-                     userProfileData.projects.push({ title, description, competencies, image: imageUrl });
-                }
-            }
-        }
+        // --- User-specific detailed profile data, stored in ALL_USER_PROFILES ---
+        let allUserProfiles = JSON.parse(localStorage.getItem('ALL_USER_PROFILES')) || {};
+        
+        const projectsToSave = [];
         // Correctly gather projects based on visibleProjectCount for saving
-        const finalProjectsToSave = [];
         for (let i = 1; i <= visibleProjectCount; i++) {
             const projectEntry = document.getElementById(`project-entry-${i}`);
             if (projectEntry && projectEntry.style.display !== 'none') { 
                 const title = projectEntry.querySelector('.project-title').value.trim();
                 const description = projectEntry.querySelector('.project-description').value.trim();
-                const imageUrl = projectEntry.querySelector('.project-image-url').value.trim(); // Get image URL again for the final list
+                const imageUrl = projectEntry.querySelector('.project-image-url').value.trim();
                 const competencies = [];
                 projectEntry.querySelectorAll(`.competencies-checkbox-group input[name='competencies-${i}']:checked`).forEach(cb => {
                     competencies.push(cb.value);
                 });
-                finalProjectsToSave.push({ title, description, competencies, image: imageUrl });
+                projectsToSave.push({ title, description, competencies, image: imageUrl });
             }
         }
-        userProfileData.projects = finalProjectsToSave;
 
-        // Save global competencies
-        userProfileData.globalCompetencies = [];
+        const globalCompetenciesToSave = [];
         const globalCompetencyCheckboxes = document.querySelectorAll('#global-competencies-checkbox-group input[name="global-competencies"]:checked');
         globalCompetencyCheckboxes.forEach(cb => {
-            userProfileData.globalCompetencies.push(cb.value);
+            globalCompetenciesToSave.push(cb.value);
         });
 
-        localStorage.setItem('userProfile', JSON.stringify(userProfileData));
+        const userSpecificDetails = {
+            age: ageEl.value.trim(),
+            weatherApi: weatherApiCheckbox.checked,
+            stockApi: stockApiCheckbox.checked,
+            projects: projectsToSave,
+            globalCompetencies: globalCompetenciesToSave
+        };
 
-        const selectedAPIs = [];
-        if (weatherApiCheckbox.checked) selectedAPIs.push('weather');
-        if (stockApiCheckbox.checked) selectedAPIs.push('stock');
-        localStorage.setItem('selectedAPIs', JSON.stringify(selectedAPIs));
+        if (currentUser && currentUser.userId) {
+            allUserProfiles[currentUser.userId] = userSpecificDetails;
+            localStorage.setItem('ALL_USER_PROFILES', JSON.stringify(allUserProfiles));
+            // console.log(`[profile.js] Saved details for userId ${currentUser.userId} to ALL_USER_PROFILES:`, userSpecificDetails); // Optional: for debugging
+        } else {
+            console.error("[profile.js] Cannot save user-specific details: currentUser or currentUser.userId is missing. CurrentUser:", currentUser);
+        }
+        // --- End of user-specific detailed profile data ---
         
         if (localStorage.getItem('isNewUser') === 'true') {
             localStorage.removeItem('isNewUser'); 
@@ -193,38 +184,37 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Load Profile Data ---
     function loadProfile() {
         const currentUser = JSON.parse(localStorage.getItem('user')) || {};
-        const userProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
+        const allUserProfiles = JSON.parse(localStorage.getItem('ALL_USER_PROFILES')) || {};
+        
+        // Get the detailed profile for the current user, or an empty object if not found
+        const userSpecificDetails = (currentUser && currentUser.userId && allUserProfiles[currentUser.userId]) 
+                                      ? allUserProfiles[currentUser.userId] 
+                                      : {};
 
-        if (currentUser.firstName) firstNameEl.value = currentUser.firstName;
-        if (currentUser.lastName) lastNameEl.value = currentUser.lastName;
-        if (currentUser.email) emailEl.value = currentUser.email;
-        emailEl.disabled = true;
-        if (currentUser.about) aboutEl.value = currentUser.about;
-        profileImgEl.src = currentUser.profilePicture || '../pics/defaultPic.jpeg';
-        navProfileImgEl.src = currentUser.profilePicture || '../pics/defaultPic.png';
-        navUserNameEl.textContent = currentUser.firstName || currentUser.email || 'User';
-
-        if (userProfile.age) ageEl.value = userProfile.age;
-        if (userProfile.linkedinLink) linkedinLinkEl.value = userProfile.linkedinLink;
-        weatherApiCheckbox.checked = !!userProfile.weatherApi;
-        stockApiCheckbox.checked = !!userProfile.stockApi;
+        // Populate basic info from currentUser (name, email, social links, profile picture)
+        if (firstNameEl) firstNameEl.value = currentUser.firstName || '';
+        if (lastNameEl) lastNameEl.value = currentUser.lastName || '';
+        if (emailEl) emailEl.value = currentUser.email || '';
+        if (linkedinLinkEl) linkedinLinkEl.value = currentUser.linkedinLink || '';
+        if (githubLinkEl) githubLinkEl.value = currentUser.githubLink || '';
+        if (aboutEl) aboutEl.value = currentUser.about || '';
+        if (profileImgEl) profileImgEl.src = currentUser.profilePicture || '../pics/defaultPic.png';
+        if (navProfileImgEl) navProfileImgEl.src = currentUser.profilePicture || '../pics/defaultPic.png';
+        if (navUserNameEl) navUserNameEl.textContent = `${currentUser.firstName || ''} ${currentUser.lastName || ''}`.trim();
+        
+        // Populate detailed info (age, APIs, projects, global competencies) from userSpecificDetails
+        if (ageEl) ageEl.value = userSpecificDetails.age || '';
+        if (weatherApiCheckbox) weatherApiCheckbox.checked = !!userSpecificDetails.weatherApi;
+        if (stockApiCheckbox) stockApiCheckbox.checked = !!userSpecificDetails.stockApi;
 
         // Load global competencies
         const globalCompetenciesGroup = document.getElementById('global-competencies-checkbox-group');
-        if (globalCompetenciesGroup && userProfile.globalCompetencies && Array.isArray(userProfile.globalCompetencies)) {
+        if (globalCompetenciesGroup) {
             const globalCheckboxes = globalCompetenciesGroup.querySelectorAll('input[name="global-competencies"]');
             globalCheckboxes.forEach(checkbox => {
-                if (userProfile.globalCompetencies.includes(checkbox.value)) {
-                    checkbox.checked = true;
-                } else {
-                    checkbox.checked = false;
-                }
-            });
-        } else if (globalCompetenciesGroup) {
-            // If no saved global competencies, ensure all are unchecked
-            const globalCheckboxes = globalCompetenciesGroup.querySelectorAll('input[name="global-competencies"]');
-            globalCheckboxes.forEach(checkbox => {
-                checkbox.checked = false;
+                checkbox.checked = userSpecificDetails.globalCompetencies && Array.isArray(userSpecificDetails.globalCompetencies) 
+                                   ? userSpecificDetails.globalCompetencies.includes(checkbox.value)
+                                   : false;
             });
         }
 
@@ -239,8 +229,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         visibleProjectCount = 1; // Reset visible count
 
-        if (userProfile.projects && Array.isArray(userProfile.projects)) {
-            userProfile.projects.forEach((project, index) => {
+        if (userSpecificDetails.projects && Array.isArray(userSpecificDetails.projects)) {
+            userSpecificDetails.projects.forEach((project, index) => {
                 const projectNum = index + 1;
                 if (projectNum > MAX_PROJECTS) return; // Don't load more than max
 
@@ -252,14 +242,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     // Load competencies
                     const competenciesGroup = projectEntry.querySelector('.competencies-checkbox-group');
-                    if (competenciesGroup && project.competencies && Array.isArray(project.competencies)) {
+                    if (competenciesGroup) {
                         // First, uncheck all competencies for this project entry
                         competenciesGroup.querySelectorAll(`input[name='competencies-${projectNum}']`).forEach(cb => cb.checked = false);
                         // Then, check the saved ones
-                        project.competencies.forEach(compValue => {
-                            const checkbox = competenciesGroup.querySelector(`input[name='competencies-${projectNum}'][value='${compValue}']`);
-                            if (checkbox) checkbox.checked = true;
-                        });
+                        if (project.competencies && Array.isArray(project.competencies)){
+                            project.competencies.forEach(compValue => {
+                                const checkbox = competenciesGroup.querySelector(`input[name='competencies-${projectNum}'][value='${compValue}']`);
+                                if (checkbox) checkbox.checked = true;
+                            });
+                        }
                     }
 
                     if (projectNum > 1) { // If it's project 2 or 3, make it visible

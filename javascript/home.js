@@ -91,6 +91,7 @@ $(document).ready(function() {
   $('#nav-user-name').text(`${user.firstName || ''} ${user.lastName || ''}`);
 
   // Update profile section (Hero Section)
+  console.log('User object from localStorage:', JSON.parse(JSON.stringify(user))); // Log a deep copy
   $('#profile-pic-hero').attr('src', user.profilePicture || '../pics/defaultPic.png');
   $('#profile-name-hero').text(`${user.firstName || ''} ${user.lastName || ''}`);
   $("#profile-tagline-hero").text(user.about || ''); // About info becomes tagline
@@ -103,13 +104,39 @@ $(document).ready(function() {
     $('#profile-linkedin-hero').hide();
   }
 
-  // Get user profile data
-  const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
-  const apis = JSON.parse(localStorage.getItem('selectedAPIs') || '[]');
+  // Update social links in Footer
+  console.log('footerLinkedinLink value:', user.linkedinLink);
+  const footerLinkedinLink = user.linkedinLink ? user.linkedinLink.trim() : '';
+  if (footerLinkedinLink) {
+    $('#footer-linkedin-link').attr('href', footerLinkedinLink).show();
+  } else {
+    $('#footer-linkedin-link').hide();
+  }
+
+  console.log('githubLink value:', user.githubLink);
+  const githubLink = user.githubLink ? user.githubLink.trim() : '';
+  if (githubLink) {
+    $('#footer-github-link').attr('href', githubLink).show();
+  } else {
+    $('#footer-github-link').hide();
+  }
+
+  const email = user.email ? user.email.trim() : '';
+  if (email) {
+    $('#footer-email-link').attr('href', `mailto:${email}`).show();
+  } else {
+    $('#footer-email-link').hide();
+  }
+
+  // Get user-specific profile data
+  const allUserProfiles = JSON.parse(localStorage.getItem('ALL_USER_PROFILES') || '{}');
+  const userSpecificDetails = (user && user.userId && allUserProfiles[user.userId]) 
+                                ? allUserProfiles[user.userId] 
+                                : {};
 
   // Populate new portfolio sections
-  populateGlobalSkills(profile.globalCompetencies);
-  populatePortfolioProjects(profile.projects);
+  populateGlobalSkills(userSpecificDetails.globalCompetencies);
+  populatePortfolioProjects(userSpecificDetails.projects);
 
   // Comprehensive profile rendering
   function renderProfileInfo() {
@@ -121,17 +148,19 @@ $(document).ready(function() {
         <div class="profile-details">
           <p><strong>First Name:</strong> ${user.firstName || 'N/A'}</p>
           <p><strong>Last Name:</strong> ${user.lastName || 'N/A'}</p>
-          <p><strong>Age:</strong> ${profile.age || 'N/A'}</p>
+          <p><strong>Age:</strong> ${userSpecificDetails.age || 'N/A'}</p>
           <p><strong>Email:</strong> ${user.email || 'N/A'}</p>
           <div class="api-selection">
             <strong>Selected APIs:</strong>
             <ul>
-              ${apis.length ? apis.map(api => `<li>${api}</li>`).join('') : '<li>None</li>'}
+              ${(userSpecificDetails.weatherApi || userSpecificDetails.stockApi) ? 
+                [userSpecificDetails.weatherApi ? 'Weather' : null, userSpecificDetails.stockApi ? 'Stock' : null].filter(Boolean).map(api => `<li>${api}</li>`).join('') : 
+                '<li>None</li>'}
             </ul>
           </div>
         </div>
       `;
-      animateProfileSection();
+      // animateProfileSection(); // Function not defined
       // Use jQuery to set HTML safely
       $('#profile-info').html(profileInfoHtml);
     } catch (error) {
@@ -148,16 +177,14 @@ $(document).ready(function() {
   // Logout functionality
   $('#logout-btn').click(function() {
     localStorage.removeItem('user');
+    // Potentially clear ALL_USER_PROFILES for the logged-out user if desired, or leave it.
     window.location.href = 'login.html';
   });
 
-  // Get selected APIs
-  const selectedAPIs = JSON.parse(localStorage.getItem('selectedAPIs') || '[]');
-
-  // Conditionally show/hide sections
+  // Conditionally show/hide API sections based on userSpecificDetails
   function updateSectionVisibility() {
-    $('.weather-container').toggle(selectedAPIs.includes('weather'));
-    $('.stock-container').toggle(selectedAPIs.includes('stock'));
+    $('.weather-container').toggle(!!userSpecificDetails.weatherApi);
+    $('.stock-container').toggle(!!userSpecificDetails.stockApi);
   }
 
   // Call section visibility on page load
@@ -165,9 +192,9 @@ $(document).ready(function() {
 
   // Weather API configuration - Using Open-Meteo as primary API
   function fetchWeather() {
-    // Only fetch if weather API is selected
-    if (!selectedAPIs.includes('weather')) {
-      console.log('Weather API not selected');
+    // Only fetch if weather API is selected in userSpecificDetails
+    if (!userSpecificDetails.weatherApi) {
+      console.log('Weather API not selected by user');
       return;
     }
 
@@ -278,7 +305,7 @@ $(document).ready(function() {
 
   function fetchStockData() {
     // Only fetch if stock API is selected
-    if (!selectedAPIs.includes('stock')) {
+    if (!userSpecificDetails.stockApi) {
       console.log('Stock API not selected');
       return;
     }
@@ -508,7 +535,7 @@ function loadProfileInfo() {
     stockSection = '<div id="stock-section"><strong>Stock Market Data:</strong><div id="stock-info">Loading...</div></div>';
   }
 
-  document.getElementById('profile-info').innerHTML =
+  // document.getElementById('profile-info').innerHTML = // Commented out to prevent error, renderProfileInfo handles this.
     '<div class="profile-image-section">' +
       '<img src="' + (user.profilePicture || '../pics/defaultPic.png') + '" alt="Profile Image" width="100">' +
     '</div>' +
