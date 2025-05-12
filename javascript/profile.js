@@ -152,8 +152,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function handleRemoveProjectClick(projectNumToRemove) {
         console.log('[PROFILE.JS] handleRemoveProjectClick called for projectNumToRemove:', projectNumToRemove, 'Current visibleProjectCount:', visibleProjectCount);
-        if (projectNumToRemove <= 1 || projectNumToRemove > visibleProjectCount) {
-            console.log('[PROFILE.JS] Condition (projectNumToRemove <= 1 || projectNumToRemove > visibleProjectCount) is TRUE. Returning.');
+        if (projectNumToRemove < 1 || projectNumToRemove > visibleProjectCount) {
+            console.log(`[PROFILE.JS] Invalid projectNumToRemove (${projectNumToRemove}) or project is not within visible range (1 to ${visibleProjectCount}). Returning.`);
             return;
         }
 
@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('[PROFILE.JS] Decremented visibleProjectCount to:', visibleProjectCount);
         updateAddProjectButtonVisibility();
         console.log('[PROFILE.JS] handleRemoveProjectClick finished. Data NOT persisted by this action.');
+        persistProfileData(); // Persist data after removing a project
     }
 
     // --- Load Profile Data ---
@@ -284,6 +285,27 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // --- Event Listeners ---
+    function attachRemoveListeners() {
+        const removeButtons = document.querySelectorAll('.remove-project-btn');
+        console.log(`[PROFILE.JS] Attaching remove listeners to ${removeButtons.length} buttons.`);
+        removeButtons.forEach(button => {
+            // Remove any old listener first to prevent duplicates if called multiple times
+            button.replaceWith(button.cloneNode(true)); // Simple way to remove all listeners
+            const newButton = document.getElementById(button.id) || document.querySelector(`[data-project-num="${button.dataset.projectNum}"]`); // Re-select the cloned button
+            if (newButton) { // Ensure the button exists after clone/replace
+                newButton.addEventListener('click', function(event) {
+                    event.preventDefault(); 
+                    event.stopPropagation();
+                    const projectNum = parseInt(this.dataset.projectNum, 10);
+                    console.log(`[PROFILE.JS] Remove button clicked directly for project: ${projectNum}`);
+                    handleRemoveProjectClick(projectNum);
+                });
+            } else {
+                 console.error(`[PROFILE.JS] Failed to re-select button after cloning for project num: ${button.dataset.projectNum}`);
+            }
+        });
+    }
+
     if (updateImgBtn && imgUploadInput) {
         updateImgBtn.onclick = () => imgUploadInput.click();
         imgUploadInput.onchange = function () {
@@ -321,7 +343,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     clearProjectEntryFields(visibleProjectCount); 
                     nextProjectEntry.style.display = 'block';
                     console.log('[PROFILE.JS] Made project-entry-', visibleProjectCount, 'visible.');
-                } else {
+                    attachRemoveListeners(); // Attach listener to the new remove button
+                 } else {
                     console.error('[PROFILE.JS] Could not find nextProjectEntry for project-entry-', visibleProjectCount);
                 }
                 updateAddProjectButtonVisibility();
@@ -331,53 +354,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }); // Correctly closed addProjectBtn listener
     }
 
-    // Event delegation for remove project buttons
+
+
     if (profileForm) {
-        profileForm.addEventListener('click', function(event) {
-            // Log the actual click target and its classes for debugging
-            console.log('[PROFILE.JS] Form click event. Target:', event.target, 'Target classes:', event.target.classList, 'Target tagName:', event.target.tagName);
-
-            let removeButtonElement = null;
-
-            // Primary check: directly on event.target if it IS the button
-            if (event.target.tagName === 'BUTTON' && event.target.classList.contains('remove-project-btn')) {
-                removeButtonElement = event.target; // event.target is the button itself
-                console.log('[PROFILE.JS] Direct Check (classList.contains) Passed: event.target is a BUTTON with .remove-project-btn.');
-            } else {
-                // Log why the direct check failed for context
-                console.log('[PROFILE.JS] Direct Check (classList.contains) Failed. event.target.tagName:', event.target.tagName, 'Target classList value:', event.target.classList.value, 'Searching for class string:', 'remove-project-btn', 'Result of classList.contains("remove-project-btn"):', event.target.classList.contains('remove-project-btn'));
-                
-                // Second direct check: using event.target.matches()
-                if (event.target.tagName === 'BUTTON' && event.target.matches('.remove-project-btn')) {
-                    removeButtonElement = event.target;
-                    console.log('[PROFILE.JS] Second Direct Check (matches) Passed: event.target is a BUTTON and matches .remove-project-btn selector.');
-                } else {
-                    console.log('[PROFILE.JS] Second Direct Check (matches) Failed. event.target.tagName:', event.target.tagName, 'Result of matches(.remove-project-btn):', event.target.matches('.remove-project-btn'));
-
-                    // Fallback: Try .closest() in case the click was on a child INSIDE the button
-                    const buttonViaClosest = event.target.closest('.remove-project-btn');
-                    if (buttonViaClosest) {
-                        removeButtonElement = buttonViaClosest;
-                        console.log('[PROFILE.JS] Fallback (.closest) Succeeded: .closest() found a .remove-project-btn parent.');
-                    } else {
-                        console.log('[PROFILE.JS] Fallback (.closest) Failed: .closest() also did not find .remove-project-btn. No remove action taken.');
-                    }
-                }
-            }
-
-            if (removeButtonElement) {
-                console.log('[PROFILE.JS] Valid remove button identified. Proceeding to handle remove click for button:', removeButtonElement);
-                event.preventDefault(); 
-                event.stopPropagation(); 
-                event.stopImmediatePropagation();
-
-                const projectNum = parseInt(removeButtonElement.dataset.projectNum, 10);
-                console.log('[PROFILE.JS] Calling handleRemoveProjectClick for projectNum:', projectNum);
-                handleRemoveProjectClick(projectNum);
-            }
-        });
-
         profileForm.addEventListener('submit', handleSubmitProfile);
+    } else {
+        console.error('[PROFILE.JS] CRITICAL: profileForm element (id="profile-form") was not found in the DOM. Remove project buttons WILL NOT WORK.');
     }
 
     if (logoutBtn) {
@@ -391,4 +373,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- Initializations ---
     loadProfile(); 
+    attachRemoveListeners(); // Attach listeners on initial load
 });
